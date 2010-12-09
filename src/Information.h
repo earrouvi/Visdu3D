@@ -22,7 +22,7 @@ public:
 	Information();
 	~Information();
 
-	virtual bool afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> groupe)=0;
+	bool afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> groupe) { printf("Cannot display abstract Information"); return false;};
 
 };
 
