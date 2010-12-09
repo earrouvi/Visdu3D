@@ -14,7 +14,7 @@
 
 //others
 #include "ParsedObject.h"
-#include "InfoQualitative.h"
+#include "QualitativeInfo.h"
 
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
@@ -23,8 +23,8 @@ public:
 
 	CityGMLObject(osg::ref_ptr<osg::Group>);
 
-	bool afficherInfos(InfoQualitative info, osg::ref_ptr<osg::Group> group);
-	void masquerInfos(Information info, osg::ref_ptr<osg::Group> group);
+	bool afficherInfos(Information &info, osg::ref_ptr<osg::Group> group);
+	void masquerInfos(Information &info, osg::ref_ptr<osg::Group> group);
 
 	virtual ~CityGMLObject();
 };
