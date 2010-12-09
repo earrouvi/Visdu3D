@@ -16,8 +16,11 @@
 #include <ext/hash_map>
 
 CityGMLObject::CityGMLObject(osg::ref_ptr<osg::Group> groupe) {
-	new osg::Group();
-	listeInfos = new hash_map<int, Information>();
+	// constructeur qui ne sert à rien
+}
+
+void CityGMLObject::initializeList() {
+	infoList = new hash_map<int, Information>();
 }
 
 bool CityGMLObject::afficherInfos(Information &info, osg::ref_ptr<osg::Group> root) {

@@ -18,7 +18,7 @@
 using namespace __gnu_cxx;
 
 ParsedObject::ParsedObject() {
-	listeInfos = new hash_map<int, Information>();
+	infoList = new hash_map<int, Information>();
 }
 
 ParsedObject::~ParsedObject() {
