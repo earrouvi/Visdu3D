@@ -13,7 +13,7 @@
 #include <osg/ShapeDrawable>
 
 //others
-#include "ModeAffichage.h"
+#include "DisplayMode.h"
 
 
 
@@ -22,13 +22,7 @@ public:
 	Information();
 	~Information();
 
-	enum affichages {
-			SHAPE_3D,
-			COLOR_CHANGE,
-			OPACITY_CHANGE
-		};
-
-	//virtual bool afficher(ModeAffichage * mode, osg::ref_ptr<osg::Group> groupe)=0;
+	virtual bool afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> groupe)=0;
 
 };
 

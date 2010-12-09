@@ -22,7 +22,7 @@ ObjetCityGML::ObjetCityGML(osg::ref_ptr<osg::Group> groupe) {
 
     bool ObjetCityGML::afficherInfos(InfoQualitative info, osg::ref_ptr<osg::Group> root) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
-	ModeAffichage * mode = new ModeAffichage();
+	DisplayMode * mode = new DisplayMode();
 	bool bienAffiche = info.afficher(mode, root);
 	return bienAffiche;
 }

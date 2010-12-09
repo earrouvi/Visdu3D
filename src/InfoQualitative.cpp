@@ -12,7 +12,7 @@ InfoQualitative::InfoQualitative() {
 
 }
 
-bool InfoQualitative::afficher(ModeAffichage * mode, osg::ref_ptr<osg::Group> root) {
+bool InfoQualitative::afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> root) {
 	// pour le type d'affichage : on rajoute une forme 3D
 	if (mode == 0) {
 		osg::ref_ptr<osg::Box> boite (new osg::Box(osg::Vec3(10,1,1),1.0f));
