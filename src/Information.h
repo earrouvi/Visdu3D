@@ -28,7 +28,7 @@ public:
 			OPACITY_CHANGE
 		};
 
-	virtual bool afficher(ModeAffichage * modeAffichage, osg::ref_ptr<osg::Group> group);
+	//virtual bool afficher(ModeAffichage * mode, osg::ref_ptr<osg::Group> groupe)=0;
 
 };
 

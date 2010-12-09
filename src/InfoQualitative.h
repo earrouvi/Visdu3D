@@ -13,10 +13,9 @@
 class InfoQualitative : public Information {
 public:
 	InfoQualitative();
-
-	bool afficher(ModeAffichage, osg::ref_ptr<osg::Group>);
-
 	virtual ~InfoQualitative();
+
+	bool afficher(ModeAffichage * modeAffichage, osg::ref_ptr<osg::Group> group);
 };
 
 #endif /* INFOQUALITATIVE_H_ */
