@@ -15,7 +15,7 @@ public:
 	InfoQualitative();
 	virtual ~InfoQualitative();
 
-	bool afficher(ModeAffichage * modeAffichage, osg::ref_ptr<osg::Group> group);
+	bool afficher(DisplayMode * modeAffichage, osg::ref_ptr<osg::Group> group);
 };
 
 #endif /* INFOQUALITATIVE_H_ */

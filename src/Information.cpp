@@ -11,7 +11,7 @@
 
 //others
 #include "Information.h"
-#include "ModeAffichage.h"
+#include "DisplayMode.h"
 
 Information::Information() {
 	// TODO Auto-generated constructor stub
