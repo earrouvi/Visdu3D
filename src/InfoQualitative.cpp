@@ -14,6 +14,7 @@ InfoQualitative::InfoQualitative() {
 
 bool InfoQualitative::afficher(ModeAffichage, osg::ref_ptr<osg::Group>) {
 
+	return true;
 }
 
 InfoQualitative::~InfoQualitative() {

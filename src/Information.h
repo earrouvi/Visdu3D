@@ -15,20 +15,21 @@
 //others
 #include "ModeAffichage.h"
 
+
+
 class Information {
 public:
+	Information();
+	~Information();
 
 	enum affichages {
-		SHAPE_3D,
-		COLOR_CHANGE,
-		OPACITY_CHANGE
-	};
+			SHAPE_3D,
+			COLOR_CHANGE,
+			OPACITY_CHANGE
+		};
 
-	Information();
+	virtual bool afficher(ModeAffichage * modeAffichage, osg::ref_ptr<osg::Group> group);
 
-	virtual bool afficher(ModeAffichage, osg::ref_ptr<osg::Group>) = 0;
-
-	virtual ~Information();
 };
 
 #endif /* INFORMATION_H_ */

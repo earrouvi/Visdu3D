@@ -23,8 +23,8 @@ public:
 
 	ObjetCityGML(osg::ref_ptr<osg::Group>);
 
-	void afficherInfos(Information, osg::ref_ptr<osg::Group>);
-	void masquerInfos(Information, osg::ref_ptr<osg::Group>);
+	void afficherInfos(Information info, osg::ref_ptr<osg::Group> group);
+	void masquerInfos(Information info, osg::ref_ptr<osg::Group> group);
 
 	virtual ~ObjetCityGML();
 };
