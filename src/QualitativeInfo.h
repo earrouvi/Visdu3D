@@ -15,7 +15,7 @@ public:
 	QualitativeInfo();
 	virtual ~QualitativeInfo();
 
-	bool afficher(DisplayMode * modeAffichage, osg::ref_ptr<osg::Group> group);
+	bool afficher(DisplayMode * displayMode, osg::ref_ptr<osg::Group> group);
 };
 
 #endif /* QualitativeInfo_H_ */

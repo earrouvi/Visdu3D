@@ -11,6 +11,7 @@
 //osg includes
 #include <osgViewer/Viewer>
 #include <osg/ShapeDrawable>
+#include <osg/Group>
 
 //others
 #include "DisplayMode.h"
