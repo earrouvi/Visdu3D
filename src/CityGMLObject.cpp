@@ -11,7 +11,7 @@
 
 //others
 #include "CityGMLObject.h"
-#include "ObjetParse.h"
+#include "ParsedObject.h"
 #include "InfoQualitative.h"
 #include <ext/hash_map>
 

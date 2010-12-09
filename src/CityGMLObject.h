@@ -13,10 +13,10 @@
 #include <osg/ShapeDrawable>
 
 //others
-#include "ObjetParse.h"
+#include "ParsedObject.h"
 #include "InfoQualitative.h"
 
-class CityGMLObject : public osg::Group, public ObjetParse {
+class CityGMLObject : public osg::Group, public ParsedObject {
 public:
 
 	std::string s;

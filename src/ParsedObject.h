@@ -1,32 +1,32 @@
 /*
- * ObjetParse.h
+ * ParsedObject.h
  *
  *  Created on: 8 déc. 2010
  *      Author: Renard
  */
 
-#ifndef OBJETPARSE_H_
-#define OBJETPARSE_H_
+#ifndef PARSEDOBJECT_H_
+#define PARSEDOBJECT_H_
 
 //osg includes
 #include <osgViewer/Viewer>
 #include <osg/ShapeDrawable>
 
 //others
-#include "ObjetParse.h"
+#include "ParsedObject.h"
 #include <iostream>
 #include <ext/hash_map>
 #include "Information.h"
 
 using namespace __gnu_cxx;
 
-class ObjetParse {
+class ParsedObject {
 public:
 
 	hash_map<int, Information> * listeInfos;
 
-	ObjetParse();
-	virtual ~ObjetParse();
+	ParsedObject();
+	virtual ~ParsedObject();
 };
 
-#endif /* OBJETPARSE_H_ */
+#endif /* ParsedObject_H_ */
