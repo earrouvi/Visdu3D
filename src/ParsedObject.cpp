@@ -1,5 +1,5 @@
 /*
- * ObjetParse.cpp
+ * ParsedObject.cpp
  *
  *  Created on: 8 déc. 2010
  *      Author: Renard
@@ -10,17 +10,17 @@
 #include <osg/ShapeDrawable>
 
 //others
-#include "ObjetParse.h"
+#include "ParsedObject.h"
 #include <iostream>
 #include <ext/hash_map>
 #include "Information.h"
 
 using namespace __gnu_cxx;
 
-ObjetParse::ObjetParse() {
+ParsedObject::ParsedObject() {
 	listeInfos = new hash_map<int, Information>();
 }
 
-ObjetParse::~ObjetParse() {
+ParsedObject::~ParsedObject() {
 	// TODO Auto-generated destructor stub
 }
