@@ -1,21 +1,21 @@
 /*
- * InfoQualitative.h
+ * QualitativeInfo.h
  *
  *  Created on: 8 déc. 2010
  *      Author: Renard
  */
 
-#ifndef INFOQUALITATIVE_H_
-#define INFOQUALITATIVE_H_
+#ifndef QUALITATIVEINFO_H_
+#define QUALITATIVEINFO_H_
 
 #include "Information.h"
 
-class InfoQualitative : public Information {
+class QualitativeInfo : public Information {
 public:
-	InfoQualitative();
-	virtual ~InfoQualitative();
+	QualitativeInfo();
+	virtual ~QualitativeInfo();
 
 	bool afficher(DisplayMode * modeAffichage, osg::ref_ptr<osg::Group> group);
 };
 
-#endif /* INFOQUALITATIVE_H_ */
+#endif /* QualitativeInfo_H_ */
