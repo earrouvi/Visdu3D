@@ -51,6 +51,7 @@ int main()
 
    //The geode containing our shape
    osg::ref_ptr<osg::Geode> myshapegeode (new osg::Geode);
+   osg::ref_ptr<osg::Geometry> geom (new osg::Geometry);
 
    //The geode containing our second shape
    osg::ref_ptr<osg::Geode> myshapegeode2 (new osg::Geode);
@@ -106,11 +107,39 @@ int main()
    cyldraw->setColor(osg::Vec4(0.5, 0, 0.3, 0.5));
    cylText->setColor(cyldraw->getColor());
 
+   osg::Vec3Array* pyramidVertices = new osg::Vec3Array;
+   pyramidVertices->push_back( osg::Vec3( 0, 0, 0) ); // front left
+   pyramidVertices->push_back( osg::Vec3(10, 0, 0) ); // front right
+   pyramidVertices->push_back( osg::Vec3(10,10, 0) ); // back right
+   pyramidVertices->push_back( osg::Vec3( 0,10, 0) ); // back left
+   pyramidVertices->push_back( osg::Vec3( 5, 5,10) ); // peak
+   geom->setVertexArray(pyramidVertices);
+   osg::DrawElementsUInt* pyramidFaceOne =
+         new osg::DrawElementsUInt(osg::PrimitiveSet::TRIANGLES, 0);
+      pyramidFaceOne->push_back(0);
+      pyramidFaceOne->push_back(1);
+      pyramidFaceOne->push_back(4);
+      geom->addPrimitiveSet(pyramidFaceOne);
+
+
+   osg::DrawElementsUInt* pyramidBase =
+		   new osg::DrawElementsUInt(osg::PrimitiveSet::QUADS, 0);
+   pyramidBase->push_back(3);
+   pyramidBase->push_back(2);
+   pyramidBase->push_back(1);
+   pyramidBase->push_back(0);
+   geom->addPrimitiveSet(pyramidBase);
+
+
    // transparence
-   osg::StateSet* state = cyldraw->getOrCreateStateSet();
+   osg::StateSet* state = geom->getOrCreateStateSet();
    state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
    osg::Material* mat = new osg::Material;
+   mat->setColorMode(osg::Material::SPECULAR);
    mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.1);
+   mat->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0.3, 0.5));
+   mat->setDiffuse( osg::Material::BACK,osg::Vec4( .2f, .9f, .9f, 1.f ) );
+   mat->setSpecular(osg::Material::FRONT, osg::Vec4(1, 0.5, 0.3, 0.5));
    state->setAttributeAndModes(mat,osg::StateAttribute::ON | osg::StateAttribute::OVERRIDE);
 
    osg::BlendFunc* bf = new osg::BlendFunc(osg::BlendFunc::SRC_ALPHA, osg::BlendFunc::ONE_MINUS_SRC_ALPHA );
@@ -119,7 +148,7 @@ int main()
    state->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
    state->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
 
-   cyldraw->setStateSet(state);
+   geom->setStateSet(state);
    // fin transparence
 
 /* SCENE GRAPH*/
@@ -129,6 +158,7 @@ int main()
    myshapegeode->addDrawable(cyldraw.get());
    myshapegeode->addDrawable(monTexte);
    myshapegeode->addDrawable(cylText);
+   myshapegeode->addDrawable(geom);
 
    // Add the geode to the scene graph root (Group)
    root->addChild(myshapegeode.get());

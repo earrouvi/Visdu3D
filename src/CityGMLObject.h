@@ -19,10 +19,9 @@
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
 
-	std::string s;
-
 	CityGMLObject(osg::ref_ptr<osg::Group>);
 
+	void initializeList();
 	bool afficherInfos(Information &info, osg::ref_ptr<osg::Group> group);
 	void masquerInfos(Information &info, osg::ref_ptr<osg::Group> group);
 

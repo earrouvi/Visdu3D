@@ -23,7 +23,7 @@ using namespace __gnu_cxx;
 class ParsedObject {
 public:
 
-	hash_map<int, Information> * listeInfos;
+	hash_map<int, Information> * infoList;
 
 	ParsedObject();
 	virtual ~ParsedObject();
