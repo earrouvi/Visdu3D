@@ -7,12 +7,9 @@
 
 #ifndef CITYGMLOBJECT_H_
 #define CITYGMLOBJECT_H_
-// std
-#include <iostream>
 
 //osg includes
-#include <osgViewer/Viewer>
-#include <osg/ShapeDrawable>
+#include <osg/MatrixTransform>
 
 //others
 #include "ParsedObject.h"
@@ -20,15 +17,18 @@
 
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
-	CityGMLObject(std::string fileName, osg::ref_ptr<osg::Group> root);
+	CityGMLObject(std::string fileName);
 
 	std::string s;
 
 	void initializeList();
 	bool afficherInfos(Information &info, osg::ref_ptr<osg::Group> group);
 	void masquerInfos(Information &info, osg::ref_ptr<osg::Group> group);
-
+	osg::ref_ptr<osg::MatrixTransform> getCityGMLScaleMAT() { return myCitygmlScaleMAT; }
 	virtual ~CityGMLObject();
+
+private:
+	osg::ref_ptr<osg::MatrixTransform> myCitygmlScaleMAT;
 };
 
 #endif /* CityGMLObject_H_ */

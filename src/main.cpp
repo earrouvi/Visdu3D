@@ -46,8 +46,9 @@ int main( int argc, const char* argv[])
 
 	/* OPENING THE FILES */
 	//Loading the CityGML file
-	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile, root);
-	
+	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
+	// Add the nodes to the scene graph root (Group)
+	root->addChild(cityGMLObject->getCityGMLScaleMAT());
 
 	/* KEYBOARD INPUT*/
 	//Stats Event Handler (s key)
@@ -56,7 +57,6 @@ int main( int argc, const char* argv[])
 	viewer.addEventHandler(new osgViewer::WindowSizeHandler);
 	// add the state manipulator
 	viewer.addEventHandler( new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()) );
-
 
 	/* START VIEWER */
 	// Set the scene data
