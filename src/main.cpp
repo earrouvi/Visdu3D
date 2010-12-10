@@ -17,23 +17,22 @@
 // others
 #include "CityGMLObject.h"
 
-using namespace std;
 
 // 
 int main( int argc, const char* argv[])
 {
-
+    cout << "pouet " << endl;
 	/* Parsing the program arguments */
 	//  Checking CityGML File
-	string cityGMLFile = argv[1];
+	std::string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
 	{
 		cout << "error: Not a correct Citygml file, put it in \".citygml\" format." << endl;
 	}
-
+	cout << "ploup " << endl;
 
 	// Checking ShapeFile File
-	string shapeFile = argv[2];
+	//string shapeFile = argv[2];
 
 
 
@@ -46,10 +45,11 @@ int main( int argc, const char* argv[])
 
 	/* OPENING THE FILES */
 	//Loading the CityGML file
+	cout << "plop " << endl;
 	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
 	// Add the nodes to the scene graph root (Group)
 	root->addChild(cityGMLObject->getCityGMLScaleMAT());
-
+	cout << "plaf " << endl;
 	/* KEYBOARD INPUT*/
 	//Stats Event Handler (s key)
 	viewer.addEventHandler(new osgViewer::StatsHandler);
