@@ -29,6 +29,8 @@ CityGMLObject::CityGMLObject(std::string fileName, osg::ref_ptr<osg::Group> root
 	root->addChild(citygmlScaleMAT.get());
 }
 
+
+// method that has to be called after creating a new CityGMLObject
 void CityGMLObject::initializeList() {
 	infoList = new hash_map<int, Information>();
 }
