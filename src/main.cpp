@@ -13,14 +13,14 @@ using namespace std;
 // 
 int main( int argc, const char* argv[])
 {
-	//Verification du fichier CityGML
+	//  Checking CityGML File
 	string cityGMLFile = argv[1];
 	if(CityGMLFile.substr(CityGMLFile.find_last_of(".") + 1) != "citygml")
 	{
-		cout << "erreur: Le fichier citygml n'est pas valable" << endl;
+		cout << "error: Not a correct Citygml file, put it in \".citygml\" format." << endl;
 	}
 
-	//Verification du fichier ShapeFile
+	// Checking ShapeFile File
 	string shapeFile = argv[2];
 
 	
