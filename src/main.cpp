@@ -148,7 +148,6 @@ int main()
    state->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
    state->setMode(GL_LIGHTING, osg::StateAttribute::OFF);
 
-   geom->setStateSet(state);
    // fin transparence
 
 /* SCENE GRAPH*/
