@@ -6,16 +6,13 @@
  */
 
 //osg includes
-#include <osgViewer/Viewer>
-#include <osg/ShapeDrawable>
+#include <osgDB/ReadFile>
 
 //others
 #include "CityGMLObject.h"
 #include "ParsedObject.h"
 #include "QualitativeInfo.h"
 #include <ext/hash_map>
-#include <osgDB/ReadFile>
-#include <osg/Group>
 
 CityGMLObject::CityGMLObject(std::string fileName) {
 	osg::ref_ptr<osg::MatrixTransform> citygmlScaleMAT (new osg::MatrixTransform);
@@ -32,14 +29,14 @@ void CityGMLObject::initializeList() {
 	infoList = new hash_map<int, Information>();
 }
 
-bool CityGMLObject::afficherInfos(Information &info, osg::ref_ptr<osg::Group> root) {
+bool CityGMLObject::afficherInfos(Information &info) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
 	DisplayMode * mode = new DisplayMode();
-	bool bienAffiche = info.afficher(mode, root);
+	bool bienAffiche = info.afficher(mode);
 	return bienAffiche;
 }
 
-void CityGMLObject::masquerInfos(Information &info, osg::ref_ptr<osg::Group> root) {
+void CityGMLObject::masquerInfos(Information &info) {
 }
 
 CityGMLObject::~CityGMLObject() {

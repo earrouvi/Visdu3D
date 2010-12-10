@@ -12,7 +12,7 @@ QualitativeInfo::QualitativeInfo() {
 
 }
 
-bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> root) {
+bool QualitativeInfo::afficher(DisplayMode * mode) {
 	switch(mode->getDisplayModeType()){
 	// For shape 3D display type SHAPE_3D: we add a 3D shape
 	case DisplayMode::SHAPE_3D:
@@ -21,7 +21,7 @@ bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> root
 			osg::ref_ptr<osg::ShapeDrawable> boiteD (new osg::ShapeDrawable(boite.get()));
 			osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 			geode->addDrawable(boiteD.get());
-			root->addChild(geode.get());
+			//root->addChild(geode.get());
 		}
 		break;
 
@@ -32,7 +32,7 @@ bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Group> root
 			osg::ref_ptr<osg::ShapeDrawable> boiteD (new osg::ShapeDrawable(boite.get()));
 			osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 			geode->addDrawable(boiteD.get());
-			root->addChild(geode.get());
+			//root->addChild(geode.get());
 		}
 		break;
 	default:

@@ -22,8 +22,8 @@ public:
 	std::string s;
 
 	void initializeList();
-	bool afficherInfos(Information &info, osg::ref_ptr<osg::Group> group);
-	void masquerInfos(Information &info, osg::ref_ptr<osg::Group> group);
+	bool afficherInfos(Information &info);
+	void masquerInfos(Information &info);
 	osg::ref_ptr<osg::MatrixTransform> getCityGMLScaleMAT() { return myCitygmlScaleMAT; }
 	virtual ~CityGMLObject();
 

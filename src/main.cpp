@@ -17,40 +17,51 @@
 // others
 #include "CityGMLObject.h"
 
+using namespace std;
 
 // 
 int main( int argc, const char* argv[])
 {
-    cout << "pouet " << endl;
 	/* Parsing the program arguments */
+    //cout << "Parsing arguments..." << endl;
 	//  Checking CityGML File
-	std::string cityGMLFile = argv[1];
+	string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
 	{
 		cout << "error: Not a correct Citygml file, put it in \".citygml\" format." << endl;
 	}
-	cout << "ploup " << endl;
+    cout << "Parsing OK... " << endl;
 
 	// Checking ShapeFile File
 	//string shapeFile = argv[2];
 
-
+    cout << "Parsing OK... " << endl;
 
 	/* CREATION OF THE SCENE */
+    cout << "Creating the scene... " << endl;
 	//Creating the viewer
 	osgViewer::Viewer viewer ;
-
 	//Creating the root node
 	osg::ref_ptr<osg::Group> root (new osg::Group);
+	// Scene Created
+    cout << "Scene creation OK... " << endl;
+
 
 	/* OPENING THE FILES */
+    cout << "Loading files... " << endl;
 	//Loading the CityGML file
-	cout << "plop " << endl;
+    cout << "Loading CityGML file... " << endl;
 	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
 	// Add the nodes to the scene graph root (Group)
 	root->addChild(cityGMLObject->getCityGMLScaleMAT());
-	cout << "plaf " << endl;
+    cout << "CityGML file loaded... " << endl;
+    //Loading the Shapefile
+    cout << "Loading Shapefile file... " << endl;
+    // TODO Insert commands here.
+    cout << "Shapefile loaded... " << endl;
+
 	/* KEYBOARD INPUT*/
+    cout << "Managing Keyboard Inputs... " << endl;
 	//Stats Event Handler (s key)
 	viewer.addEventHandler(new osgViewer::StatsHandler);
 	//Windows size handler (f key)
@@ -59,6 +70,7 @@ int main( int argc, const char* argv[])
 	viewer.addEventHandler( new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()) );
 
 	/* START VIEWER */
+    cout << "Starting the viewer... " << endl;
 	// Set the scene data
 		viewer.setSceneData( root.get() );
 	//The viewer.run() method starts the threads and the traversals.
