@@ -7,6 +7,8 @@
 
 #ifndef CITYGMLOBJECT_H_
 #define CITYGMLOBJECT_H_
+// std
+#include <iostream>
 
 //osg includes
 #include <osgViewer/Viewer>
@@ -18,7 +20,7 @@
 
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
-	CityGMLObject(osg::ref_ptr<osg::Group>);
+	CityGMLObject(std::string fileName, osg::ref_ptr<osg::Group> root);
 
 	std::string s;
 

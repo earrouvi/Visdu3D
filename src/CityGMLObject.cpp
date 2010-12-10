@@ -14,9 +14,19 @@
 #include "ParsedObject.h"
 #include "QualitativeInfo.h"
 #include <ext/hash_map>
+#include <osgViewer/Viewer>
+#include <osg/MatrixTransform>
+#include <osgDB/ReadFile>
+#include <osg/Group>
 
-CityGMLObject::CityGMLObject(osg::ref_ptr<osg::Group> groupe) {
-	// constructeur qui ne sert à rien
+CityGMLObject::CityGMLObject(std::string fileName, osg::ref_ptr<osg::Group> root) {
+	osg::ref_ptr<osg::MatrixTransform> citygmlScaleMAT (new osg::MatrixTransform);
+	osg::Matrix citygmlScaleMatrix;
+	osg::ref_ptr<osg::Node> citygmlnode (osgDB::readNodeFile(fileName));
+	citygmlScaleMAT->addChild(citygmlnode.get());
+	citygmlScaleMAT->setMatrix(citygmlScaleMatrix);
+	// Add the nodes to the scene graph root (Group)
+	root->addChild(citygmlScaleMAT.get());
 }
 
 void CityGMLObject::initializeList() {
