@@ -28,7 +28,7 @@ int main( int argc, const char* argv[])
 	string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
 	{
-		cout << "error: Not a correct Citygml file, put it in \".citygml\" format." << endl;
+		cout << "error: Not a correct CityGML file, put it in \".citygml\" format." << endl;
 	}
     cout << "Parsing OK... " << endl;
 

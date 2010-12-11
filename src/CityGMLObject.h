@@ -19,8 +19,6 @@ class CityGMLObject : public osg::Group, public ParsedObject {
 public:
 	CityGMLObject(std::string fileName);
 
-	std::string s;
-
 	void initializeList();
 	bool afficherInfos(Information &info);
 	void masquerInfos(Information &info);
