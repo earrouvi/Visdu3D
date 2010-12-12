@@ -19,7 +19,7 @@ QualitativeInfo::QualitativeInfo() {
 }
 
 QualitativeInfo::QualitativeInfo(std::string s) {
-	text = s;
+	myText = s;
 }
 
 bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node) {
@@ -27,7 +27,7 @@ bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node)
 	// For shape 3D display type SHAPE_3D: we add a 3D shape
 	case DisplayMode::SHAPE_3D:
 	{
-		osg::ref_ptr<osg::Box> boite (new osg::Box(osg::Vec3(10,1,1),1.0f));
+		osg::ref_ptr<osg::Box> boite (new osg::Box(node->getBound().center(), 1));
 		osg::ref_ptr<osg::ShapeDrawable> boiteD (new osg::ShapeDrawable(boite.get()));
 		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 		geode->addDrawable(boiteD.get());
@@ -48,9 +48,12 @@ bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node)
 	// For text display type COLOR_CHANGE: we display the associated text
 	case DisplayMode::TEXT_DISPLAY:
 	{
-		osgText::Text * text = new osgText::Text(myText);
-		text->setPosition();
+		osgText::Text * text = new osgText::Text();
+		text->setText(myText);
+		text->setPosition(node->getBound().center());
+		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 		geode->addDrawable(text);
+		//root->addChild(geode.get());
 	}
 	break;
 	default:
