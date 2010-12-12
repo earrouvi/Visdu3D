@@ -16,10 +16,10 @@ public:
 	QualitativeInfo(std::string s);
 	virtual ~QualitativeInfo();
 
-	bool afficher(DisplayMode * displayMode);
+	bool afficher(DisplayMode * displayMode, osg::ref_ptr<osg::Node> node);
 
 private:
-	std::string text;
+	std::string myText;
 };
 
 #endif /* QualitativeInfo_H_ */
