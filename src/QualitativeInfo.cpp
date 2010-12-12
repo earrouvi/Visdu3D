@@ -51,6 +51,9 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node) 
 		osgText::Text * text = new osgText::Text();
 		text->setText(myText);
 		text->setPosition(node->getBound().center());
+		text->setAutoRotateToScreen(true);
+		text->setAlignment(osgText::Text::CENTER_CENTER);
+		text->setColor(osg::Vec4(0, 0, 0, 1));
 		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 		geode->addDrawable(text);
 		//root->addChild(geode.get());
