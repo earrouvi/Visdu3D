@@ -25,15 +25,15 @@ class CityGMLObject : public osg::Group, public ParsedObject {
 public:
 	CityGMLObject(std::string fileName);
 
-	std::string s;
-
 	void initializeList();
 	bool afficherInfos(Information &info);
 	void masquerInfos(Information &info);
 	osg::ref_ptr<osg::MatrixTransform> getCityGMLScaleMAT() { return myCitygmlScaleMAT; }
+	osg::ref_ptr<osg::Node> getCityGMLNode() { return myCitygmlNode; }
 	virtual ~CityGMLObject();
 
 private:
+	osg::ref_ptr<osg::Node> myCitygmlNode;
 	osg::ref_ptr<osg::MatrixTransform> myCitygmlScaleMAT;
 };
 

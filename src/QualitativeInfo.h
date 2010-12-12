@@ -19,9 +19,13 @@
 class QualitativeInfo : public Information {
 public:
 	QualitativeInfo();
+	QualitativeInfo(std::string s);
 	virtual ~QualitativeInfo();
 
 	bool afficher(DisplayMode * displayMode);
+
+private:
+	std::string text;
 };
 
 #endif /* QualitativeInfo_H_ */

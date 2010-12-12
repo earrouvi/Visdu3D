@@ -25,10 +25,12 @@ public:
 				NONE,
 				SHAPE_3D,
 				COLOR_CHANGE,
-				OPACITY_CHANGE
+				OPACITY_CHANGE,
+				TEXT_DISPLAY
 			};
 	// Gets the type of this DisplayMode
 	DisplayType getDisplayModeType(void) {return myDisplayType; }
+
 private:
 	DisplayType myDisplayType;
 };
