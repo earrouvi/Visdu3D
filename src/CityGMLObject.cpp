@@ -20,6 +20,7 @@ CityGMLObject::CityGMLObject(std::string fileName) {
 	osg::ref_ptr<osg::Node> citygmlnode (osgDB::readNodeFile(fileName));
 	citygmlScaleMAT->addChild(citygmlnode.get());
 	citygmlScaleMAT->setMatrix(citygmlScaleMatrix);
+	myCitygmlNode = citygmlnode;
 	myCitygmlScaleMAT = citygmlScaleMAT;
 }
 
