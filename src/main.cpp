@@ -30,7 +30,7 @@ using namespace std;
 int main( int argc, const char* argv[])
 {
 	/* Parsing the program arguments */
-    cout << "Parsing arguments..." << endl;
+	cout << "Parsing arguments..." << endl;
 	//  Checking CityGML File
 	string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
@@ -77,7 +77,7 @@ int main( int argc, const char* argv[])
 	// add the state manipulator
 	viewer.addEventHandler( new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()) );
 
-/* creation d'informations et affichage */
+	/* creation d'informations et affichage */
 
 	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) citygmlNode.get();
@@ -86,7 +86,14 @@ int main( int argc, const char* argv[])
 	DisplayMode * mode = new DisplayMode(dt);
 	info->display(mode, citygmlNode);
 
-/* fin de la creation d'informations */
+	osgText::Text * text = new osgText::Text();
+	text->setText(info->getMyText());
+	text->setPosition(citygmlNode->getBound().center());
+	osg::ref_ptr<osg::Geode> geode (new osg::Geode);
+	geode->addDrawable(text);
+	root->addChild(geode.get());
+
+	/* fin de la creation d'informations */
 
 	/* START VIEWER */
 	cout << "Starting the viewer... " << endl;

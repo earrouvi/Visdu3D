@@ -23,6 +23,7 @@ public:
 	virtual ~QualitativeInfo();
 
 	bool display(DisplayMode * displayMode, osg::ref_ptr<osg::Node> node);
+	std::string getMyText() {return myText;}
 
 private:
 	std::string myText;
