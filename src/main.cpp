@@ -65,7 +65,7 @@ int main( int argc, const char* argv[])
 	cout << "CityGML file loaded... " << endl;
 	//Loading the Shapefile
 	cout << "Loading Shapefile file... " << endl;
-	// TODO Insert commands here.
+	// Insert commands here.
 	cout << "Shapefile loaded... " << endl;
 
 	/* KEYBOARD INPUT*/
@@ -79,7 +79,7 @@ int main( int argc, const char* argv[])
 
 /* creation d'informations et affichage */
 
-	QualitativeInfo * info = new QualitativeInfo();
+	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
 
 /* fin de la creation d'informations */
 

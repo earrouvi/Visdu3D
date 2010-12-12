@@ -22,7 +22,7 @@ QualitativeInfo::QualitativeInfo(std::string s) {
 	text = s;
 }
 
-bool QualitativeInfo::afficher(DisplayMode * mode) {
+bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node) {
 	switch(mode->getDisplayModeType()){
 	// For shape 3D display type SHAPE_3D: we add a 3D shape
 	case DisplayMode::SHAPE_3D:
@@ -46,9 +46,11 @@ bool QualitativeInfo::afficher(DisplayMode * mode) {
 	}
 	break;
 	// For text display type COLOR_CHANGE: we display the associated text
-	case DisplayMode::COLOR_CHANGE:
+	case DisplayMode::TEXT_DISPLAY:
 	{
-		osg::Text
+		osgText::Text * text = new osgText::Text(myText);
+		text->setPosition();
+		geode->addDrawable(text);
 	}
 	break;
 	default:
