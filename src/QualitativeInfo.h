@@ -1,8 +1,14 @@
 /*
  * QualitativeInfo.h
  *
- *  Created on: 8 déc. 2010
- *      Author: Renard
+ *  Created on: Dec. 2010
+ *      Author: Visdu3D, Group project working on cityGML and ESRI formats co-visualization.
+ *      Elsa Arrou-Vignod
+ *      Florent Buisson
+ *      Robin Kervadec
+ *      Alice Lan
+ *      Michael Lumbroso
+ *      Toinon Vigier
  */
 
 #ifndef QUALITATIVEINFO_H_

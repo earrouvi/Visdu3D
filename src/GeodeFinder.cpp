@@ -1,8 +1,17 @@
 /*
  * GeodeFinder.cpp
  *
- *  Created on: 10 déc. 2010
- *      Author: Flo
+ *  Created on: Dec. 2010
+ *      Author: Visdu3D, Group project working on cityGML and ESRI formats co-visualization.
+ *      Elsa Arrou-Vignod
+ *      Florent Buisson
+ *      Robin Kervadec
+ *      Alice Lan
+ *      Michael Lumbroso
+ *      Toinon Vigier
+ *
+ *      This file is taken from an OSG project tutorial:
+ *      http://sourceforge.net/apps/mediawiki/delta3d/index.php?title=Accessing_Underlying_OpenSceneGraph_Geometry
  */
 
 #include "GeodeFinder.h"

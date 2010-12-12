@@ -1,8 +1,17 @@
 /*
  * KeyBoardHandler.h
  *
- *  Created on: 10 déc. 2010
- *      Author: Flo
+ *  Created on: Dec. 2010
+ *      Author: Visdu3D, Group project working on cityGML and ESRI formats co-visualization.
+ *      Elsa Arrou-Vignod
+ *      Florent Buisson
+ *      Robin Kervadec
+ *      Alice Lan
+ *      Michael Lumbroso
+ *      Toinon Vigier
+ *
+ *      This file is given in an OSG tutorial:
+ *      http://www.openscenegraph.org/projects/osg/wiki/Support/Tutorials/BasicKeyboardInput
  */
 
 #ifndef KEYBOARDHANDLER_H_

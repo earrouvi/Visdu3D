@@ -1,8 +1,14 @@
 /*
  * main.cpp
  *
- * Created on: 9 dec. 2010
- * Author: Robin
+ *  Created on: Dec. 2010
+ *      Author: Visdu3D, Group project working on cityGML and ESRI formats co-visualization.
+ *      Elsa Arrou-Vignod
+ *      Florent Buisson
+ *      Robin Kervadec
+ *      Alice Lan
+ *      Michael Lumbroso
+ *      Toinon Vigier
  */
 
 #include <iostream>
@@ -23,14 +29,13 @@ using namespace std;
 int main( int argc, const char* argv[])
 {
 	/* Parsing the program arguments */
-    //cout << "Parsing arguments..." << endl;
+    cout << "Parsing arguments..." << endl;
 	//  Checking CityGML File
 	string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
 	{
 		cout << "error: Not a correct Citygml file, put it in \".citygml\" format." << endl;
 	}
-    cout << "Parsing OK... " << endl;
 
 	// Checking ShapeFile File
 	//string shapeFile = argv[2];
