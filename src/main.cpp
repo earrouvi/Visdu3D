@@ -68,6 +68,12 @@ int main( int argc, const char* argv[])
 	// Insert commands here.
 	cout << "Shapefile loaded... " << endl;
 
+	osg::ref_ptr<osg::MatrixTransform> shapeFileScaleMAT (new osg::MatrixTransform);
+	osg::Matrix shapeFileScaleMatrix;
+	osg::ref_ptr<osg::Node> shapeFileNode (osgDB::readNodeFile("/User/Flo/Dev/OpenSceneGraph-Data/Data_Toinon/Bati_ile_nantes_l2e/bati_ile_nantes.shp"));
+	citygmlScaleMAT->addChild(citygmlnode.get());
+	citygmlScaleMAT->setMatrix(citygmlScaleMatrix);
+
 	/* KEYBOARD INPUT*/
 	cout << "Managing Keyboard Inputs... " << endl;
 	//Stats Event Handler (s key)

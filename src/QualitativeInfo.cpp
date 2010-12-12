@@ -19,7 +19,7 @@ QualitativeInfo::QualitativeInfo() {
 }
 
 QualitativeInfo::QualitativeInfo(std::string s) {
-	text = s;
+	//text = s;
 }
 
 bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node) {
