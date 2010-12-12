@@ -38,7 +38,8 @@ void CityGMLObject::initializeList() {
 
 bool CityGMLObject::displayInfo(Information &info) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
-	DisplayMode * mode = new DisplayMode(DisplayMode::DisplayType);
+	DisplayType displayType = TEXT_DISPLAY;
+	DisplayMode * mode = new DisplayMode(displayType);
 	bool bienAffiche = info.display(mode, myCitygmlNode);
 	return bienAffiche;
 }

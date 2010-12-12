@@ -7,7 +7,7 @@
 
 #include "DisplayMode.h"
 
-DisplayMode::DisplayMode(DisplayType * dt) {
+DisplayMode::DisplayMode(DisplayType dt) {
 	myDisplayType = dt;
 }
 

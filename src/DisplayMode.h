@@ -14,18 +14,17 @@
 #ifndef DISPLAYMODE_H_
 #define DISPLAYMODE_H_
 
-
-
-class DisplayMode {
-public:
-	enum DisplayType {
+enum DisplayType {
 					NONE,
 					SHAPE_3D,
 					COLOR_CHANGE,
 					OPACITY_CHANGE,
 					TEXT_DISPLAY
 				};
-	DisplayMode(DisplayMode::DisplayType dt);
+
+class DisplayMode {
+public:
+	DisplayMode(DisplayType dt);
 	virtual ~DisplayMode();
 
 
