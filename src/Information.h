@@ -29,7 +29,7 @@ public:
 	Information();
 	~Information();
 
-	bool afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node) { printf("Cannot display abstract Information"); return false;};
+	bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node) { printf("Cannot display abstract Information"); return false;};
 
 };
 

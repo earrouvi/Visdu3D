@@ -36,14 +36,14 @@ void CityGMLObject::initializeList() {
 	infoList = new hash_map<int, Information>();
 }
 
-bool CityGMLObject::afficherInfos(Information &info) {
+bool CityGMLObject::displayInfo(Information &info) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
-	DisplayMode * mode = new DisplayMode();
-	bool bienAffiche = info.afficher(mode, myCitygmlNode);
+	DisplayMode * mode = new DisplayMode(DisplayMode::DisplayType);
+	bool bienAffiche = info.display(mode, myCitygmlNode);
 	return bienAffiche;
 }
 
-void CityGMLObject::masquerInfos(Information &info) {
+void CityGMLObject::maskInfo(Information &info) {
 }
 
 CityGMLObject::~CityGMLObject() {

@@ -7,9 +7,8 @@
 
 #include "DisplayMode.h"
 
-DisplayMode::DisplayMode() {
-	// TODO Auto-generated constructor stub
-
+DisplayMode::DisplayMode(DisplayType * dt) {
+	myDisplayType = dt;
 }
 
 DisplayMode::~DisplayMode() {

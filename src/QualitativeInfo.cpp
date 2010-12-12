@@ -22,7 +22,7 @@ QualitativeInfo::QualitativeInfo(std::string s) {
 	myText = s;
 }
 
-bool QualitativeInfo::afficher(DisplayMode * mode, osg::ref_ptr<osg::Node> node) {
+bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node) {
 	switch(mode->getDisplayModeType()){
 	// For shape 3D display type SHAPE_3D: we add a 3D shape
 	case DisplayMode::SHAPE_3D:

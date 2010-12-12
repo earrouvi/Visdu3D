@@ -16,13 +16,13 @@
 
 // osg includes
 #include <osgViewer/Viewer>
-#include <osg/Node>
 // Keyboard input
 #include <osgViewer/ViewerEventHandlers>
 #include <osgGA/StateSetManipulator>
 
 // others
 #include "CityGMLObject.h"
+#include "DisplayMode.h"
 
 using namespace std;
 
@@ -79,7 +79,12 @@ int main( int argc, const char* argv[])
 
 /* creation d'informations et affichage */
 
+	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
+	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) citygmlNode.get();
 	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
+	//DisplayMode * mode = new DisplayMode();
+
+	info->display(DisplayMode::DisplayType::TEXT_DISPLAY, citygmlNode);
 
 /* fin de la creation d'informations */
 
