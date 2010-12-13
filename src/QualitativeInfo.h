@@ -20,13 +20,11 @@ class QualitativeInfo : public Information {
 public:
 	QualitativeInfo();
 	QualitativeInfo(std::string s);
+	QualitativeInfo(Information & info);
 	virtual ~QualitativeInfo();
 
 	bool display(DisplayMode * displayMode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root);
-	std::string getMyText() {return myText;}
 
-private:
-	std::string myText;
 };
 
 #endif /* QualitativeInfo_H_ */
