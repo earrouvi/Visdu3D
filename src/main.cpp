@@ -87,23 +87,24 @@ int main( int argc, const char* argv[])
 	// Create new Keybord handler
 	//KeyboardEventHandler* keh = new KeyboardEventHandler(mat, mat2, state);
 	//viewer.getEventHandlers().push_front(keh);
-	/* creation d'informations et affichage
+	/* creation d'informations et affichage */
 
-	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
-	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) ((osg::Group*) citygmlNode.get())->getChild(0);
+
+	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) cityGMLObject->asGroup()->getChild(0);
+	//CityGMLObject * cityGMLObject2 = new CityGMLObject(myOSGGroup);
 	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
 	cityGMLObject->addInfo(*info);
 	cityGMLObject->displayInfo(*info, root);
 
 	osgText::Text * text = new osgText::Text();
 	text->setText(info->getMyText());
-	text->setPosition(citygmlNode->getBound().center());
+	text->setPosition(cityGMLObject->getBound().center());
 	text->setAutoRotateToScreen(true);
 	text->setAlignment(osgText::Text::CENTER_CENTER);
 	text->setColor(osg::Vec4(0, 0, 0, 1));
 	osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 	geode->addDrawable(text);
-	root->addChild(geode.get());*/
+	root->addChild(geode.get());
 
 	/* fin de la creation d'informations */
 

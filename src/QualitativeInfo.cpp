@@ -14,12 +14,17 @@
 #include "QualitativeInfo.h"
 #include <osgText/Text>
 #include <osgText/Font>
+#include <iostream>
 
 QualitativeInfo::QualitativeInfo() {
 }
 
 QualitativeInfo::QualitativeInfo(std::string s) {
-	myText = s;
+	setMyText(s);
+}
+
+QualitativeInfo::QualitativeInfo(Information & info) {
+	setMyText(info.getMyText()!="" ? info.getMyText() : "");
 }
 
 bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) {
@@ -49,8 +54,11 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 	case TEXT_DISPLAY:
 	{
 		osgText::Text * text = new osgText::Text();
-		text->setText(myText);
-		text->setPosition(node->getBound().center());
+		text->setText(getMyText());
+		//node->computeBound();
+		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
+		std::cout << pos->x() << std::endl;
+		text->setPosition(osg::Vec3(pos->x(),pos->y(),node->getBound().radius()*0.5));
 		text->setAutoRotateToScreen(true);
 		text->setAlignment(osgText::Text::CENTER_CENTER);
 		text->setColor(osg::Vec4(0, 0, 0, 1));
