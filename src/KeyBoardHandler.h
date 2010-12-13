@@ -83,9 +83,9 @@ bool KeyboardEventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIAct
 
 void KeyboardEventHandler::startAction(int num) {
 	if (num == 1) {
-		state->setAttribute(mat, osg::StateAttribute::ON);
+		state->setAttribute(new osg::Material(*mat), osg::StateAttribute::ON);
 	} else if (num == 2) {
-		state->setAttribute(mat2, osg::StateAttribute::ON);
+		state->setAttribute(new osg::Material(*mat2), osg::StateAttribute::ON);
 	}
 }
 
