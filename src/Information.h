@@ -30,13 +30,20 @@ public:
 	~Information();
 
 	bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) { printf("Cannot display abstract Information\n"); return false;};
+
 	std::string getMyText() { return myText; }
 	void setMyText(std::string s) { myText = s; }
 
-	//bool isQuali() { return false; }
+	int getLevelIndex() { return levelIndex; }
+	int getChildIndex() { return childIndex; }
+
+	void setLevelIndex(int i) { levelIndex = i; }
+	void setChildIndex(int i) { childIndex = i; }
 
 private:
 	std::string myText;
+	int levelIndex;
+	int childIndex;
 };
 
 #endif /* INFORMATION_H_ */
