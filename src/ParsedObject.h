@@ -28,11 +28,13 @@ using namespace __gnu_cxx;
 
 class ParsedObject {
 public:
-
 	hash_map<int, Information> * infoList;
 
 	ParsedObject();
 	virtual ~ParsedObject();
+
+	hash_map<int, Information> * getInfoList() { return infoList; }
+	void addInfo(Information info) { infoList->insert(std::pair<int, Information>(infoList->size(), info)); }
 };
 
 #endif /* ParsedObject_H_ */

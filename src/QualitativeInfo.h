@@ -22,7 +22,7 @@ public:
 	QualitativeInfo(std::string s);
 	virtual ~QualitativeInfo();
 
-	bool display(DisplayMode * displayMode, osg::ref_ptr<osg::Node> node);
+	bool display(DisplayMode * displayMode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root);
 	std::string getMyText() {return myText;}
 
 private:

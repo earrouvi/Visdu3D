@@ -81,9 +81,8 @@ int main( int argc, const char* argv[])
 	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) ((osg::Group*) citygmlNode.get())->getChild(0);
 	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
-	DisplayType dt = TEXT_DISPLAY;
-	DisplayMode * mode = new DisplayMode(dt);
-	info->display(mode, citygmlNode);
+	cityGMLObject->addInfo(*info);
+	cityGMLObject->displayInfo(*info, root);
 
 	osgText::Text * text = new osgText::Text();
 	text->setText(info->getMyText());

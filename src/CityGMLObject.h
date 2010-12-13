@@ -26,7 +26,7 @@ public:
 	CityGMLObject(std::string fileName);
 
 	void initializeList();
-	bool displayInfo(Information &info);
+	bool displayInfo(Information &info, osg::ref_ptr<osg::Group> root);
 	void maskInfo(Information &info);
 	osg::ref_ptr<osg::MatrixTransform> getCityGMLScaleMAT() { return myCitygmlScaleMAT; }
 	osg::ref_ptr<osg::Node> getCityGMLNode() { return myCitygmlNode; }
