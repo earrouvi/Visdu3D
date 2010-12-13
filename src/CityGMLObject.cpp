@@ -13,6 +13,7 @@
 
 //osg includes
 #include <osgDB/ReadFile>
+//#include <osg/CopyOp>
 
 //others
 #include "CityGMLObject.h"
@@ -20,14 +21,12 @@
 #include "QualitativeInfo.h"
 #include <ext/hash_map>
 
-CityGMLObject::CityGMLObject(std::string fileName) {
-	osg::ref_ptr<osg::MatrixTransform> citygmlScaleMAT (new osg::MatrixTransform);
-	osg::Matrix citygmlScaleMatrix;
-	osg::ref_ptr<osg::Node> citygmlnode (osgDB::readNodeFile(fileName));
-	citygmlScaleMAT->addChild(citygmlnode.get());
-	citygmlScaleMAT->setMatrix(citygmlScaleMatrix);
-	myCitygmlNode = citygmlnode;
-	myCitygmlScaleMAT = citygmlScaleMAT;
+CityGMLObject::CityGMLObject(std::string fileName) : osg::Group (*((osg::Group*) osgDB::readNodeFile(fileName))/*, osg::CopyOp::DEEP_COPY_ALL*/) {
+	osg::ref_ptr<osg::MatrixTransform> cityGMLScaleMAT (new osg::MatrixTransform);
+	osg::Matrix cityGMLScaleMatrix;
+	cityGMLScaleMAT->addChild(((osg::ref_ptr<osg::Node>) this->asGroup()).get());
+	cityGMLScaleMAT->setMatrix(cityGMLScaleMatrix);
+	myCityGMLScaleMAT = cityGMLScaleMAT;
 }
 
 
@@ -40,7 +39,7 @@ bool CityGMLObject::displayInfo(Information &info, osg::ref_ptr<osg::Group> root
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
 	DisplayType displayType = TEXT_DISPLAY;
 	DisplayMode * mode = new DisplayMode(displayType);
-	bool bienAffiche = info.display(mode, myCitygmlNode, root);
+	bool bienAffiche = info.display(mode, ((osg::ref_ptr<osg::Node>) this->asGroup()), root);
 	return bienAffiche;
 }
 

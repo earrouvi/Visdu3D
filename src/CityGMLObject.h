@@ -24,17 +24,17 @@
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
 	CityGMLObject(std::string fileName);
+	CityGMLObject();
 
 	void initializeList();
 	bool displayInfo(Information &info, osg::ref_ptr<osg::Group> root);
 	void maskInfo(Information &info);
-	osg::ref_ptr<osg::MatrixTransform> getCityGMLScaleMAT() { return myCitygmlScaleMAT; }
-	osg::ref_ptr<osg::Node> getCityGMLNode() { return myCitygmlNode; }
+
+	osg::ref_ptr<osg::MatrixTransform> getCityGMLScaleMAT() { return myCityGMLScaleMAT; }
 	virtual ~CityGMLObject();
 
 private:
-	osg::ref_ptr<osg::Node> myCitygmlNode;
-	osg::ref_ptr<osg::MatrixTransform> myCitygmlScaleMAT;
+	osg::ref_ptr<osg::MatrixTransform> myCityGMLScaleMAT;
 };
 
 #endif /* CityGMLObject_H_ */

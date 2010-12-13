@@ -59,21 +59,21 @@ int main( int argc, const char* argv[])
 	cout << "Loading files... " << endl;
 	//Loading the CityGML file
 	cout << "Loading CityGML file... " << endl;
-	//CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
+	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
 	// Add the nodes to the scene graph root (Group)
-	//root->addChild(cityGMLObject->getCityGMLScaleMAT());
+	root->addChild(cityGMLObject->getCityGMLScaleMAT());
 	cout << "CityGML file loaded... " << endl;
 	//Loading the Shapefile
 	cout << "Loading Shapefile file... " << endl;
 	// Insert commands here.
 	cout << "Shapefile loaded... " << endl;
 
-	osg::ref_ptr<osg::MatrixTransform> shapeFileScaleMAT (new osg::MatrixTransform);
+	/*osg::ref_ptr<osg::MatrixTransform> shapeFileScaleMAT (new osg::MatrixTransform);
 	osg::Matrix shapeFileScaleMatrix;
 	osg::ref_ptr<osg::Node> shapeFileNode (osgDB::readNodeFile("/User/Flo/Dev/OpenSceneGraph-Data/Data_Toinon/Bati_ile_nantes_l2e/bati_ile_nantes.shp"));
 	shapeFileScaleMAT->addChild(shapeFileNode.get());
 	shapeFileScaleMAT->setMatrix(shapeFileScaleMatrix);
-	root->addChild(shapeFileScaleMAT.get());
+	root->addChild(shapeFileScaleMAT.get());*/
 
 
 	/* KEYBOARD INPUT*/
@@ -84,7 +84,9 @@ int main( int argc, const char* argv[])
 	viewer.addEventHandler(new osgViewer::WindowSizeHandler);
 	// add the state manipulator
 	viewer.addEventHandler( new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()) );
-
+	// Create new Keybord handler
+	//KeyboardEventHandler* keh = new KeyboardEventHandler(mat, mat2, state);
+	//viewer.getEventHandlers().push_front(keh);
 	/* creation d'informations et affichage
 
 	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
