@@ -96,16 +96,6 @@ int main( int argc, const char* argv[])
 	cityGMLObject->addInfo(*info);
 	cityGMLObject->displayInfo(*info, root);
 
-	osgText::Text * text = new osgText::Text();
-	text->setText(info->getMyText());
-	text->setPosition(cityGMLObject->getBound().center());
-	text->setAutoRotateToScreen(true);
-	text->setAlignment(osgText::Text::CENTER_CENTER);
-	text->setColor(osg::Vec4(0, 0, 0, 1));
-	osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-	geode->addDrawable(text);
-	root->addChild(geode.get());
-
 	/* fin de la creation d'informations */
 
 	/* START VIEWER */
