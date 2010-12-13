@@ -23,7 +23,6 @@
 
 // others
 #include "CityGMLObject.h"
-#include "DisplayMode.h"
 
 using namespace std;
 
@@ -89,15 +88,17 @@ int main( int argc, const char* argv[])
 	/* creation d'informations et affichage
 
 	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
-	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) citygmlNode.get();
+	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) ((osg::Group*) citygmlNode.get())->getChild(0);
 	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
-	DisplayType dt = TEXT_DISPLAY;
-	DisplayMode * mode = new DisplayMode(dt);
-	info->display(mode, citygmlNode);
+	cityGMLObject->addInfo(*info);
+	cityGMLObject->displayInfo(*info, root);
 
 	osgText::Text * text = new osgText::Text();
 	text->setText(info->getMyText());
 	text->setPosition(citygmlNode->getBound().center());
+	text->setAutoRotateToScreen(true);
+	text->setAlignment(osgText::Text::CENTER_CENTER);
+	text->setColor(osg::Vec4(0, 0, 0, 1));
 	osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 	geode->addDrawable(text);
 	root->addChild(geode.get());*/

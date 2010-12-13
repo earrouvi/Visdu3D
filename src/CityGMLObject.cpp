@@ -36,11 +36,11 @@ void CityGMLObject::initializeList() {
 	infoList = new hash_map<int, Information>();
 }
 
-bool CityGMLObject::displayInfo(Information &info) {
+bool CityGMLObject::displayInfo(Information &info, osg::ref_ptr<osg::Group> root) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
 	DisplayType displayType = TEXT_DISPLAY;
 	DisplayMode * mode = new DisplayMode(displayType);
-	bool bienAffiche = info.display(mode, myCitygmlNode);
+	bool bienAffiche = info.display(mode, myCitygmlNode, root);
 	return bienAffiche;
 }
 
