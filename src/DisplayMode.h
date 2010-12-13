@@ -14,20 +14,20 @@
 #ifndef DISPLAYMODE_H_
 #define DISPLAYMODE_H_
 
-
+enum DisplayType {
+					NONE,
+					SHAPE_3D,
+					COLOR_CHANGE,
+					OPACITY_CHANGE,
+					TEXT_DISPLAY
+				};
 
 class DisplayMode {
 public:
-	DisplayMode();
+	DisplayMode(DisplayType dt);
 	virtual ~DisplayMode();
 
-	enum DisplayType {
-				NONE,
-				SHAPE_3D,
-				COLOR_CHANGE,
-				OPACITY_CHANGE,
-				TEXT_DISPLAY
-			};
+
 	// Gets the type of this DisplayMode
 	DisplayType getDisplayModeType(void) {return myDisplayType; }
 

@@ -16,13 +16,14 @@
 
 // osg includes
 #include <osgViewer/Viewer>
-#include <osg/Node>
+#include <osgDB/ReadFile>
 // Keyboard input
 #include <osgViewer/ViewerEventHandlers>
 #include <osgGA/StateSetManipulator>
 
 // others
 #include "CityGMLObject.h"
+#include "DisplayMode.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ using namespace std;
 int main( int argc, const char* argv[])
 {
 	/* Parsing the program arguments */
-    cout << "Parsing arguments..." << endl;
+	cout << "Parsing arguments..." << endl;
 	//  Checking CityGML File
 	string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
@@ -59,9 +60,9 @@ int main( int argc, const char* argv[])
 	cout << "Loading files... " << endl;
 	//Loading the CityGML file
 	cout << "Loading CityGML file... " << endl;
-	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
+	//CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
 	// Add the nodes to the scene graph root (Group)
-	root->addChild(cityGMLObject->getCityGMLScaleMAT());
+	//root->addChild(cityGMLObject->getCityGMLScaleMAT());
 	cout << "CityGML file loaded... " << endl;
 	//Loading the Shapefile
 	cout << "Loading Shapefile file... " << endl;
@@ -71,8 +72,10 @@ int main( int argc, const char* argv[])
 	osg::ref_ptr<osg::MatrixTransform> shapeFileScaleMAT (new osg::MatrixTransform);
 	osg::Matrix shapeFileScaleMatrix;
 	osg::ref_ptr<osg::Node> shapeFileNode (osgDB::readNodeFile("/User/Flo/Dev/OpenSceneGraph-Data/Data_Toinon/Bati_ile_nantes_l2e/bati_ile_nantes.shp"));
-	citygmlScaleMAT->addChild(citygmlnode.get());
-	citygmlScaleMAT->setMatrix(citygmlScaleMatrix);
+	shapeFileScaleMAT->addChild(shapeFileNode.get());
+	shapeFileScaleMAT->setMatrix(shapeFileScaleMatrix);
+	root->addChild(shapeFileScaleMAT.get());
+
 
 	/* KEYBOARD INPUT*/
 	cout << "Managing Keyboard Inputs... " << endl;
@@ -83,11 +86,23 @@ int main( int argc, const char* argv[])
 	// add the state manipulator
 	viewer.addEventHandler( new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()) );
 
-/* creation d'informations et affichage */
+	/* creation d'informations et affichage
 
+	osg::ref_ptr<osg::Node> citygmlNode = cityGMLObject->getCityGMLNode();
+	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) citygmlNode.get();
 	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
+	DisplayType dt = TEXT_DISPLAY;
+	DisplayMode * mode = new DisplayMode(dt);
+	info->display(mode, citygmlNode);
 
-/* fin de la creation d'informations */
+	osgText::Text * text = new osgText::Text();
+	text->setText(info->getMyText());
+	text->setPosition(citygmlNode->getBound().center());
+	osg::ref_ptr<osg::Geode> geode (new osg::Geode);
+	geode->addDrawable(text);
+	root->addChild(geode.get());*/
+
+	/* fin de la creation d'informations */
 
 	/* START VIEWER */
 	cout << "Starting the viewer... " << endl;
