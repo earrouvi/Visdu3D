@@ -94,6 +94,7 @@ int main( int argc, const char* argv[])
 	//CityGMLObject * cityGMLObject2 = new CityGMLObject(myOSGGroup);
 	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
 	cityGMLObject->addInfo(*info);
+	info->setChildIndex(1);
 	cityGMLObject->displayInfo(*info, root);
 
 	/* fin de la creation d'informations */
