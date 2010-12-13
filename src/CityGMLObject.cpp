@@ -39,7 +39,14 @@ bool CityGMLObject::displayInfo(Information &info, osg::ref_ptr<osg::Group> root
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
 	DisplayType displayType = TEXT_DISPLAY;
 	DisplayMode * mode = new DisplayMode(displayType);
-	bool bienAffiche = info.display(mode, ((osg::ref_ptr<osg::Node>) this->asGroup()), root);
+
+	bool bienAffiche = false;
+	//int cast = info.isQuali();
+	try {
+		bienAffiche = ((QualitativeInfo) info).display(mode, ((osg::ref_ptr<osg::Node>) this->asGroup()), root);
+	} catch (char * s) {
+		std::cout << "info non qualitative" << std::endl;
+	}
 	return bienAffiche;
 }
 

@@ -57,7 +57,6 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 		text->setText(getMyText());
 		//node->computeBound();
 		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
-		std::cout << pos->x() << std::endl;
 		text->setPosition(osg::Vec3(pos->x(),pos->y(),node->getBound().radius()*0.5));
 		text->setAutoRotateToScreen(true);
 		text->setAlignment(osgText::Text::CENTER_CENTER);

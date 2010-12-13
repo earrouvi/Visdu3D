@@ -33,6 +33,8 @@ public:
 	std::string getMyText() { return myText; }
 	void setMyText(std::string s) { myText = s; }
 
+	//bool isQuali() { return false; }
+
 private:
 	std::string myText;
 };

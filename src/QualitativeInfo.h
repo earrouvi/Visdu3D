@@ -21,6 +21,10 @@ public:
 	QualitativeInfo();
 	QualitativeInfo(std::string s);
 	QualitativeInfo(Information & info);
+
+	bool isQuali() { return true; }
+	bool isQuanti() { return false; }
+
 	virtual ~QualitativeInfo();
 
 	bool display(DisplayMode * displayMode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root);
