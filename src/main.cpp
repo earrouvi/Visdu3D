@@ -80,15 +80,17 @@ int main( int argc, const char* argv[])
 
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) cityGMLObject->asGroup()->getChild(0);
 	//CityGMLObject * cityGMLObject2 = new CityGMLObject(myOSGGroup);
-	QuantitativeInfo * info = new QuantitativeInfo(12);
+	QualitativeInfo * info = new QualitativeInfo("batiment neuf");
 	cityGMLObject->addInfo(*info);
 	info->setChildIndex(5);
-	cityGMLObject->displayInfo(*info, 1, root);
-	QualitativeInfo * info2 = new QualitativeInfo("info quali");
+	cityGMLObject->displayInfo(*info, 0, root);
+	QualitativeInfo * info2 = new QualitativeInfo("batiment neuf");
 	cityGMLObject->addInfo(*info2);
 	info2->setChildIndex(2);
 	cityGMLObject->displayInfo(*info2, 0, root);
 
+
+	/* fin de la creation d'informations */
 
 	/* KEYBOARD INPUT*/
 	cout << "Managing Keyboard Inputs... " << endl;
@@ -98,12 +100,9 @@ int main( int argc, const char* argv[])
 	viewer.addEventHandler(new osgViewer::WindowSizeHandler);
 	// add the state manipulator
 	viewer.addEventHandler( new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()) );
-
 	// Create new Keybord handler
 	KeyboardEventHandler* keh = new KeyboardEventHandler(cityGMLObject);
 	viewer.getEventHandlers().push_front(keh);
-
-	/* fin de la creation d'informations */
 
 	/* START VIEWER */
 	cout << "Starting the viewer... " << endl;

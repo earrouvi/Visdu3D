@@ -22,8 +22,8 @@ public:
 	QualitativeInfo(std::string s);
 	QualitativeInfo(Information & info);
 
-	bool isQuali() { return true; }
-	bool isQuanti() { return false; }
+	virtual bool isQuali() { return true; }
+	virtual bool isQuanti() { return false; }
 
 	virtual ~QualitativeInfo();
 

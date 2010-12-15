@@ -14,10 +14,7 @@
 #ifndef INFORMATION_H_
 #define INFORMATION_H_
 
-//osg includes
-#include <osgViewer/Viewer>
-#include <osg/ShapeDrawable>
-#include <osg/Group>
+
 
 //others
 #include "DisplayMode.h"
@@ -28,7 +25,7 @@ public:
 	Information();
 	~Information();
 
-	bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) { printf("Cannot display abstract Information\n"); return false;};
+	virtual bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) { printf("Cannot display abstract Information\n"); return false;};
 
 	std::string getMyText() { return myText; }
 	void setMyText(std::string s) { myText = s; }
@@ -38,6 +35,9 @@ public:
 
 	int getChildIndex() { return childIndex; }
 	void setChildIndex(int i) { childIndex = i; }
+
+	//
+	void createSmartiesAndIncatorForNode( osg::ref_ptr<osg::Node> nodeToIndicate);
 
 	//int getChildIndicesSize() { return childIndices->size(); }
 	//int getChildIndices(int i) { return childIndices->at(i); }
