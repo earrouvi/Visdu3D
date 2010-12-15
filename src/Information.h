@@ -21,8 +21,7 @@
 
 //others
 #include "DisplayMode.h"
-
-
+#include <vector>
 
 class Information {
 public:
@@ -34,16 +33,21 @@ public:
 	std::string getMyText() { return myText; }
 	void setMyText(std::string s) { myText = s; }
 
-	int getLevelIndex() { return levelIndex; }
-	int getChildIndex() { return childIndex; }
+	double getMyFigure() { return myFigure; }
+	void setMyFigure(double d) { myFigure = d; }
 
-	void setLevelIndex(int i) { levelIndex = i; }
+	int getChildIndex() { return childIndex; }
 	void setChildIndex(int i) { childIndex = i; }
+
+	//int getChildIndicesSize() { return childIndices->size(); }
+	//int getChildIndices(int i) { return childIndices->at(i); }
+	//void addIndex(int i) { childIndices->push_back(i); }
 
 private:
 	std::string myText;
-	int levelIndex;
+	double myFigure;
 	int childIndex;
+	//std::vector<int> * childIndices;
 };
 
 #endif /* INFORMATION_H_ */

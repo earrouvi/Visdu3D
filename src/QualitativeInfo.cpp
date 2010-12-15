@@ -36,17 +36,29 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 	{
 		osgText::Text * text = new osgText::Text();
 		text->setText(getMyText());
+
 		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
-		text->setPosition(osg::Vec3(pos->x(),pos->y(),node->getBound().radius()*0.25));
+		double height = node->getBound().radius();
+		pos->set(pos->x(), pos->y(), pos->z()+height/2);
+		text->setPosition(osg::Vec3(pos->x(),pos->y(),pos->z()+height/2+text->getCharacterHeight()));
 		text->setAutoRotateToScreen(true);
 		text->setAlignment(osgText::Text::CENTER_CENTER);
 		text->setColor(osg::Vec4(1, 0, 0, 1));
+		text->setCharacterSize(root->getBound().radius()*0.15);
 
-		osg::ref_ptr<osg::Box> box (new osg::Box(*pos, node->getBound().radius()*0.25));
-		osg::ref_ptr<osg::ShapeDrawable> boxD (new osg::ShapeDrawable(box.get()));
+		osg::ref_ptr<osg::Cylinder> cyl (new osg::Cylinder(*pos, node->getBound().radius()*0.5, height));
+		osg::ref_ptr<osg::ShapeDrawable> cylD (new osg::ShapeDrawable(cyl.get()));
 		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 
-		geode->addDrawable(boxD.get());
+		osg::StateSet* state = cylD->getOrCreateStateSet();
+		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+		osg::Material* mat = new osg::Material;
+		mat->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
+		mat->setSpecular(osg::Material::FRONT, osg::Vec4(0.4, 0, 0, 1));
+		mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.6);
+		state->setAttributeAndModes((new osg::Material(*mat)), osg::StateAttribute::OVERRIDE);
+
+		geode->addDrawable(cylD.get());
 		geode->addDrawable(text);
 		root->addChild(geode.get());
 	}

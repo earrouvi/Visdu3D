@@ -22,6 +22,7 @@
 //others
 #include "ParsedObject.h"
 #include "QualitativeInfo.h"
+#include "QuantitativeInfo.h"
 
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
@@ -29,7 +30,7 @@ public:
 	CityGMLObject();
 
 	void initializeList();
-	bool displayInfo(Information &info, osg::ref_ptr<osg::Group> root);
+	bool displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root);
 	void maskInfo(Information &info);
 
 	void changeInfo();

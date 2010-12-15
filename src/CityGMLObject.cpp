@@ -17,7 +17,6 @@
 //others
 #include "CityGMLObject.h"
 #include "ParsedObject.h"
-#include "QualitativeInfo.h"
 #include <ext/hash_map>
 
 CityGMLObject::CityGMLObject(std::string fileName) : osg::Group (*((osg::Group*) osgDB::readNodeFile(fileName))/*, osg::CopyOp::DEEP_COPY_ALL*/) {
@@ -61,17 +60,28 @@ void CityGMLObject::initializeList() {
 	infoList = new hash_map<int, Information>();
 }
 
-bool CityGMLObject::displayInfo(Information &info, osg::ref_ptr<osg::Group> root) {
+bool CityGMLObject::displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
-	DisplayType displayType = COLOR_CHANGE;
+	DisplayType displayType = SHAPE_3D;
 	DisplayMode * mode = new DisplayMode(displayType);
 
 	bool bienAffiche = false;
-	osg::ref_ptr<osg::Node> node = getChild(info.getChildIndex());
+	osg::ref_ptr<osg::Group> OSGGroup (new osg::Group(*this->asGroup()));
+	osg::ref_ptr<osg::Node> node;
+
 	try {
-		bienAffiche = ((QualitativeInfo) info).display(mode, node, root);
+		node = OSGGroup->getChild(info.getChildIndex());
 	} catch (char * s) {
-		std::cout << "info non qualitative" << std::endl;
+		std::cout << "The group's child you are trying to get probably does not exist." << std::endl;
+	}
+
+	if (qualiOrQuanti==0) {
+		bienAffiche = static_cast<QualitativeInfo>(info).display(mode, node, root);
+	} else if (qualiOrQuanti==1) {
+		bienAffiche = static_cast<QuantitativeInfo>(info).display(mode, node, root);
+	} else {
+		std::cout << "This piece of information is not quantitative." << std::endl;
+		std::cout << "Cannot display abstract information." << std::endl;
 	}
 	return bienAffiche;
 }
