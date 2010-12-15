@@ -62,7 +62,7 @@ void CityGMLObject::initializeList() {
 
 bool CityGMLObject::displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root) {
 	// choix du mode d'affichage et création de la Geode dans la classe Information :
-	DisplayType displayType = SHAPE_3D;
+	DisplayType displayType = OPACITY_CHANGE;
 	DisplayMode * mode = new DisplayMode(displayType);
 
 	bool bienAffiche = false;

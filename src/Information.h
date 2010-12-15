@@ -27,6 +27,9 @@ public:
 
 	virtual bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) { printf("Cannot display abstract Information\n"); return false;};
 
+	std::string getMyName() { return myName; }
+	void setMyName(std::string s) { myName = s; }
+
 	std::string getMyText() { return myText; }
 	void setMyText(std::string s) { myText = s; }
 
@@ -44,6 +47,7 @@ public:
 	//void addIndex(int i) { childIndices->push_back(i); }
 
 private:
+	std::string myName;
 	std::string myText;
 	double myFigure;
 	int childIndex;
