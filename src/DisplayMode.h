@@ -26,11 +26,16 @@
 #include <string.h>
 
 enum DisplayType {
-	NONE,
+	NO_DISPLAY_TYPE,
 	SHAPE_3D,
 	COLOR_CHANGE,
 	OPACITY_CHANGE,
 	TEXT_DISPLAY
+};
+enum FormType {
+	NO_FORM_TYPE,
+	CYLINDER,
+	SPHERE
 };
 
 class DisplayMode {
@@ -47,7 +52,11 @@ public:
 	//Getters
 	// Gets the type of this DisplayMode
 	DisplayType getDisplayModeType(void) { return myDisplayType; }
-	void addGeode(osg::ref_ptr<osg::Group> root);
+	void addGeode(osg::ref_ptr<osg::Group> root, FormType formType);
+	osg::Material * getRedMaterial();
+	osg::Material * getCoefColorMaterial(int figure);
+	osg::Material * getOpacityMaterial();
+	osg::Material * getCoefOpacityMaterial(int figure);
 	std::string getText() { return myTextToDisplay; }
 	osg::Vec3 getPos() { return myPos; }
 	double getHeight() { return myHeight; }

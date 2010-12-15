@@ -28,71 +28,53 @@ QualitativeInfo::QualitativeInfo(Information & info) {
 }
 
 bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) {
+	//Gets or create the stateSet for colour/opacity displays
+	osg::StateSet* state = node->getOrCreateStateSet();
+	state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+	//Gets object position and dimentions for the creation of the info
+	osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
+	double height = node->getBound().radius(); // These are now the same but by applying
+	double radius = node->getBound().radius(); // coefs you can change ratios !
+	//Creates the display modes
 	switch(mode->getDisplayModeType()){
 	// For shape 3D display type SHAPE_3D: we add a 3D shape
 	case SHAPE_3D:
 	{
-		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
-		double height = node->getBound().radius();
-		double radius = node->getBound().radius();
-
+		//Sets the mode's functionalities
 		mode->setText(getMyText());
 		mode->setPos(*pos);
 		mode->setRadius(radius);
 		mode->setHeight(height);
-		mode->addGeode(root);
+		//Add the 3d object to the scene
+		mode->addGeode(root,SPHERE);
 	}
 	break;
-
 	// For color change display type COLOR_CHANGE: we switch color
 	case COLOR_CHANGE:
 	{
-		osg::StateSet* state = node->getOrCreateStateSet();
-		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
-		osg::Material* mat = new osg::Material;
-		mat->setColorMode(osg::Material::AMBIENT); // SPECULAR ou EMISSION ou AMBIENT ou DIFFUSE...
-		mat->setAlpha(osg::Material::FRONT_AND_BACK, 1);
-		// let's set the different lights and colors :
-		mat->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
-		mat->setSpecular(osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
-		mat->setAmbient (osg::Material::BACK, osg::Vec4(0, 0, 1, 1));
-		mat->setSpecular(osg::Material::BACK, osg::Vec4(0, 0, 1, 1));
-		// now we can apply this material to our object :
+		//Gets the material from the mode
+		osg::Material* mat = new osg::Material(*(mode->getRedMaterial()));
+		//Application of the material to the node
 		state->setAttributeAndModes(mat, osg::StateAttribute::OVERRIDE);
-
-		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-		//geode->addDrawable(node.get());
-		root->addChild(node);
 	}
 	break;
-	// For text display type COLOR_CHANGE: we display the associated text
+	// For text display type TEXT_DISPLAY: we display the associated text
 	case TEXT_DISPLAY:
 	{
-		osgText::Text * text = new osgText::Text();
-		text->setText(getMyText());
-		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
-		text->setPosition(osg::Vec3(pos->x(),pos->y(),node->getBound().radius()*0.5));
-		text->setAutoRotateToScreen(true);
-		text->setAlignment(osgText::Text::CENTER_CENTER);
-		text->setColor(osg::Vec4(1, 0, 0, 1));
-		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-		geode->addDrawable(text);
-		root->addChild(geode.get());
+		//Sets the mode's functionalities
+		mode->setText(getMyText());
+		mode->setRadius(radius);
+		mode->setPos(*pos);
+		//Add the 3d object to the scene
+		mode->addGeode(root,NO_FORM_TYPE);
 	}
+	// For opacity change display type OPACITY_CHANGE: we switch opacity
 	case OPACITY_CHANGE:
 	{
-		osg::StateSet* state = node->getOrCreateStateSet();
-		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
-		osg::Material* mat = new osg::Material;
-		mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.5);
-		// let's set the different lights and colors :
-		mat->setAmbient(osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
-		mat->setSpecular(osg::Material::FRONT, osg::Vec4(0, 0.5, 0, 0.5));
+		//Gets the material from the mode
+		osg::Material* mat = new osg::Material(*(mode->getCoefOpacityMaterial(getMyFigure())));
 		// now we can apply this material to our object :
 		state->setAttributeAndModes(mat, osg::StateAttribute::OVERRIDE);
-
-		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-		root->addChild(node);
 	}
 	break;
 	default:

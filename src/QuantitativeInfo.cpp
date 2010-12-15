@@ -27,70 +27,46 @@ QuantitativeInfo::QuantitativeInfo(Information & info) {
 }
 
 bool QuantitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) {
+	//Gets or create the stateSet for colour/opacity displays
+	osg::StateSet* state = node->getOrCreateStateSet();
+	state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+	//Gets object position and dimentions for the creation of the info
+	osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
+	double height = node->getBound().radius(); // These are now the same but by applying
+	double radius = node->getBound().radius(); // coefs you can change ratios !
+	//Creates the display modes
 	switch(mode->getDisplayModeType()){
 	// For shape 3D display type SHAPE_3D: we add a 3D shape
 	case SHAPE_3D:
 	{
-		osgText::Text * text = new osgText::Text();
+		//Transform the information figure into a string in order to display it
 		std::ostringstream o;
 		o << getMyFigure();
 		std::string figure = o.str();
-		text->setText(figure);
+		//Sets the mode's functionalities
+		mode->setText(figure);
+		mode->setPos(*pos);
+		mode->setRadius(radius);
+		mode->setHeight(height*getMyFigure()/4);// change 4 into another number if the display is not satisfying
+		//Add the 3d object to the scene
+		mode->addGeode(root,CYLINDER);
 
-		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
-		double height = node->getBound().radius()*getMyFigure()/4; // change 4 into another number if the display is not satisfying
-		pos->set(pos->x(), pos->y(), pos->z()+height/2);
-		text->setPosition(osg::Vec3(pos->x(),pos->y(),pos->z()+height/2+text->getCharacterHeight()));
-		text->setAutoRotateToScreen(true);
-		text->setAlignment(osgText::Text::CENTER_CENTER);
-		text->setColor(osg::Vec4(1, 0, 0, 1));
-		text->setCharacterSize(root->getBound().radius()*0.15);
-
-		osg::ref_ptr<osg::Cylinder> cyl (new osg::Cylinder(*pos, node->getBound().radius()*0.5, height));
-		osg::ref_ptr<osg::ShapeDrawable> cylD (new osg::ShapeDrawable(cyl.get()));
-		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-
-		osg::StateSet* state = cylD->getOrCreateStateSet();
-		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
-		osg::Material* mat = new osg::Material;
-		mat->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
-		mat->setSpecular(osg::Material::FRONT, osg::Vec4(0.4, 0, 0, 1));
-		mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.6);
-		state->setAttributeAndModes((new osg::Material(*mat)), osg::StateAttribute::OVERRIDE);
-
-		geode->addDrawable(cylD.get());
-		geode->addDrawable(text);
-		root->addChild(geode.get());
 	}
+	// For color change display type COLOR_CHANGE: we switch color
 	case COLOR_CHANGE:
 	{
-		osg::StateSet* state = node->getOrCreateStateSet();
-		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
-		osg::Material* mat = new osg::Material;
-		mat->setAlpha(osg::Material::FRONT_AND_BACK, 1);
-		// let's set the different lights and colors :
-		mat->setAmbient(osg::Material::FRONT, osg::Vec4(0, 0, 0, 1));
-		mat->setSpecular(osg::Material::FRONT, osg::Vec4(getMyFigure()/900, 0, 1-getMyFigure()/900, 0.5)); // change values but be sure to normalize getMyFigure()
-		// now we can apply this material to our object :
+		//Gets the material from the mode
+		osg::Material* mat = new osg::Material(*(mode->getCoefColorMaterial(getMyFigure())));
+		//Application of the material to the node
 		state->setAttributeAndModes(mat, osg::StateAttribute::OVERRIDE);
-
-		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-		root->addChild(node);
 	}
+	// For text display type TEXT_DISPLAY: we display the associated text
 	case OPACITY_CHANGE:
 	{
-		osg::StateSet* state = node->getOrCreateStateSet();
-		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
-		osg::Material* mat = new osg::Material;
-		mat->setAlpha(osg::Material::FRONT_AND_BACK, getMyFigure()/900);// change values but be sure to normalize getMyFigure()
-		// let's set the different lights and colors :
-		mat->setAmbient(osg::Material::FRONT, osg::Vec4(0, 0, 0, 1));
-		mat->setSpecular(osg::Material::FRONT, osg::Vec4(0, 0.5, 0, 0.5));
+		//Gets the material from the mode
+		osg::Material* mat = new osg::Material(*(mode->getOpacityMaterial()));
 		// now we can apply this material to our object :
 		state->setAttributeAndModes(mat, osg::StateAttribute::OVERRIDE);
-
-		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
-		root->addChild(node);
 	}
 	break;
 	default:

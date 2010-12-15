@@ -11,6 +11,11 @@
  *      Toinon Vigier
  */
 
+// Comment/Uncomment this line if osgGIS is not installed on your platform
+// You will not be able to display a shapefile nor to extract information from it.
+#define OSGGIS_NOT_INSTALLED
+// DO THE SAME in ShapefileObject and DilplayableField Files (.h and .cpp)
+
 #include <iostream>
 #include <string>
 
@@ -24,6 +29,11 @@
 // others
 #include "CityGMLObject.h"
 #include "KeyBoardHandler.h"
+#ifndef OSGGIS_NOT_INSTALLED
+#include "ShapefileObject.h"
+#endif/*OSGGIS_NOT_INSTALLED*/
+
+
 
 using namespace std;
 
@@ -38,11 +48,18 @@ int main( int argc, const char* argv[])
 	{
 		cout << "error: Not a correct CityGML file, put it in \".citygml\" format." << endl;
 	} else {
-		cout << "Parsing OK... " << endl;
+		cout << "CityGML argument parsing OK... " << endl;
 	}
-
-	// Checking ShapeFile File
-	//string shapeFile = argv[2];
+#ifndef OSGGIS_NOT_INSTALLED
+	// Checking ShapeFile File // example"/home/toinon/OrbisGIS/data_seance_5/Girona/Rivers/rius.shp"
+	string shapeFile = argv[2];
+	if(shapeFile.substr(shapeFile.find_last_of(".") + 1) != "shp")
+		{
+			cout << "error: Not a correct ShapeFile file, put it in \".shp\" format." << endl;
+		} else {
+			cout << "ShapeFile argument parsing OK... " << endl;
+		}
+#endif/*OSGGIS_NOT_INSTALLED*/
 
 	cout << "Parsing OK... " << endl;
 
@@ -54,27 +71,50 @@ int main( int argc, const char* argv[])
 	osg::ref_ptr<osg::Group> root (new osg::Group);
 	// Scene Created
 	cout << "Scene creation OK... " << endl;
-
-
-	/* OPENING THE FILES */
-	cout << "Loading files... " << endl;
-	//Loading the CityGML file
-	cout << "Loading CityGML file... " << endl;
-	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
-	// Add the nodes to the scene graph root (Group)
-	root->addChild(cityGMLObject->getCityGMLScaleMAT());
-	cout << "CityGML file loaded... " << endl;
-	//Loading the Shapefile
-	cout << "Loading Shapefile file... " << endl;
-	// Insert commands here.
-	cout << "Shapefile loaded... " << endl;
-
 	/*osg::ref_ptr<osg::MatrixTransform> shapeFileScaleMAT (new osg::MatrixTransform);
 	osg::Matrix shapeFileScaleMatrix;
 	osg::ref_ptr<osg::Node> shapeFileNode (osgDB::readNodeFile("/User/Flo/Dev/OpenSceneGraph-Data/Data_Toinon/Bati_ile_nantes_l2e/bati_ile_nantes.shp"));
 	shapeFileScaleMAT->addChild(shapeFileNode.get());
 	shapeFileScaleMAT->setMatrix(shapeFileScaleMatrix);
 	root->addChild(shapeFileScaleMAT.get());*/
+
+	/* OPENING THE FILES */
+		/*CITYGML*/
+			cout << "Loading files... " << endl;
+			//Loading the CityGML file
+			cout << "Loading CityGML file... " << endl;
+			CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
+			// Add the nodes to the scene graph root (Group)
+			root->addChild(cityGMLObject->getCityGMLScaleMAT());
+			cout << "CityGML file loaded... " << endl;
+
+			cout << "Loading Shapefile file... " << endl;
+			// Insert commands here.
+			cout << "Shapefile loaded... " << endl;
+#ifndef OSGGIS_NOT_INSTALLED
+		/*SHAPEFILE*/
+			//Loading the Shapefile
+			ShapefileObject* shapeFileObject = new ShapefileObject(shapeFile);
+			//Write the different type of information included in the ShapeFile
+			//With this you can choose which type of information you get.
+			shapeFileObject->printFieldsName();
+			// Sets the color of the shapeFile Object
+			shapeFileObject->setColor("green");
+			osg::ref_ptr<osg::Node> shapeFileNode = shapeFileObject->transformShapefile();
+			// Add the nodes to the scene graph root (Group)
+			root->addChild(shapeFileNode.get());
+			//Extracts a type of information from the shapeFile
+			std::vector<DisplayableField> fieldList = shapeFileObject->ListFeaturesForField(4);
+			//Create 3D visualization for these information
+			//Sets a visualization mode
+			DisplayMode * shapeFileVisualizationMode = new DisplayMode();
+			shapeFileVisualizationMode->set...
+			shapeFileObject->createShapeFileInformation(shapeFileVisualizationMode, fieldList);
+			//Adds the information to the scene
+			shapeFileVisualizationMode->addGeode(root);
+			root->addChild(shapeInformation.get());
+#endif/*OSGGIS_NOT_INSTALLED*/
+
 
 	/* Information creation and display */
 
@@ -111,56 +151,3 @@ int main( int argc, const char* argv[])
 
 }
 
-/* REMOVE Parcours des nodes et changements d'apparence
-
-
-	//Use this to verify whether a node is a group or not.
-	//std::cout << citygmlnode->className() << std::endl;
-
-
-	//Cast our OSG Node to an OSG Group so we have access to grouping methods
-	//(do this ONLY after verifying this OSG Node is, in fact, a Node of type OSG Group)
-
-	osg::ref_ptr<osg::Group> myOSGGroup;
-	osg::ref_ptr<osg::Group> anotherOSGGroup;
-	osg::ref_ptr<osg::Group> thirdOSGGroup;
-	osg::ref_ptr<osg::Group> fourthOSGGroup;
-	myOSGGroup = (osg::Group*) citygmlnode.get();
-
-
-	for (unsigned int i = 0; i < myOSGGroup->getNumChildren()/2; i++) {
-	   cout << "\t" << myOSGGroup->getChild(i)->className() << endl;
-	   anotherOSGGroup = (osg::Group *) myOSGGroup->getChild(i);
-
-	   for (unsigned int j = 0; j < anotherOSGGroup->getNumChildren(); j++) {
-	      cout << "\t\t" << anotherOSGGroup->getChild(j)->className() << endl;
-	      osg::Geode* ceBatiment = (osg::Geode*) anotherOSGGroup->getChild(j);
-	      for(unsigned int m = 0; m < ceBatiment->getNumDrawables(); m++){
-	    	  cout << "\t\t" << ceBatiment->getDrawable(m)->className() << endl;
-	    	  osg::Geometry * geom = ceBatiment->getDrawable(m)->asGeometry();
-	    	  osg::StateSet* state = geom->getOrCreateStateSet();
-	    	  	   state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
-	    	  	   osg::Material* mat = new osg::Material;
-	    	  	   mat->setColorMode(osg::Material::AMBIENT); // SPECULAR ou EMISSION ou AMBIENT ou DIFFUSE...
-	    	  	   mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.1);
-	    	  	   // on set les differents types de couleur : (voir cours d'eImage sur lumiere ambiante, diffuse, speculaire, ...)
-	    	  	   mat->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0.3, 0.5));
-	    	  	   mat->setDiffuse( osg::Material::BACK,osg::Vec4( .2f, .9f, .9f, 1.f ) );
-	    	  	   mat->setSpecular(osg::Material::FRONT, osg::Vec4(1, 0.5, 0.3, 0.5));
-	    	  	   state->setAttributeAndModes(mat, osg::StateAttribute::ON);
-	      }
-	      thirdOSGGroup = (osg::Group *) anotherOSGGroup->getChild(j);
-	      for (unsigned int k = 0; k < thirdOSGGroup->getNumChildren(); k++) {
-	         cout << "\t\t\t" << thirdOSGGroup->getChild(k)->className() << endl;
-
-	         fourthOSGGroup = (osg::Group *) thirdOSGGroup->getChild(k);
-	         for (unsigned int l = 0; l < fourthOSGGroup->getNumChildren(); l++) {
-	            cout << "\t\t\t\t" << fourthOSGGroup->getChild(l)->className() << endl;
-	         }
-	      }
-	   }
-	}
-
-
-
- */
