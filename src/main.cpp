@@ -91,38 +91,38 @@ int main( int argc, const char* argv[])
 
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) cityGMLObject->asGroup()->getChild(0);
 	//CityGMLObject * cityGMLObject2 = new CityGMLObject(myOSGGroup);
-	QuantitativeInfo * info = new QuantitativeInfo(12);
+	QualitativeInfo * info = new QualitativeInfo("batiment neuf");
 	cityGMLObject->addInfo(*info);
 	info->setChildIndex(5);
-	cityGMLObject->displayInfo(*info, 1, root);
-	QualitativeInfo * info2 = new QualitativeInfo("info quali");
+	cityGMLObject->displayInfo(*info, 0, root);
+	QualitativeInfo * info2 = new QualitativeInfo("batiment neuf");
 	cityGMLObject->addInfo(*info2);
 	info2->setChildIndex(2);
 	cityGMLObject->displayInfo(*info2, 0, root);
 
 
 	// Create new Keybord handler
-		osg::StateSet* state = myOSGGroup->getOrCreateStateSet();
-		osg::Material* mat = new osg::Material;
-			mat->setColorMode(osg::Material::AMBIENT); // SPECULAR ou EMISSION ou AMBIENT ou DIFFUSE...
-			mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.8);
-			// on set les differents types de couleur : (voir cours d'eImage sur lumiere ambiante, diffuse, speculaire, ...)
-			mat->setAmbient (osg::Material::FRONT, osg::Vec4(0, 0, 0.3, 0.9));
-			mat->setSpecular(osg::Material::FRONT, osg::Vec4(0.1, 0.1, 0.3, 0.9));
-			mat->setAmbient (osg::Material::BACK, osg::Vec4(0, 0, 0.1, 1));
-			mat->setSpecular(osg::Material::BACK, osg::Vec4(0.2, 0.2, 0.2, 1));
+	osg::StateSet* state = myOSGGroup->getOrCreateStateSet();
+	osg::Material* mat = new osg::Material;
+	mat->setColorMode(osg::Material::AMBIENT); // SPECULAR ou EMISSION ou AMBIENT ou DIFFUSE...
+	mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.8);
+	// on set les differents types de couleur : (voir cours d'eImage sur lumiere ambiante, diffuse, speculaire, ...)
+	mat->setAmbient (osg::Material::FRONT, osg::Vec4(0, 0, 0.3, 0.9));
+	mat->setSpecular(osg::Material::FRONT, osg::Vec4(0.1, 0.1, 0.3, 0.9));
+	mat->setAmbient (osg::Material::BACK, osg::Vec4(0, 0, 0.1, 1));
+	mat->setSpecular(osg::Material::BACK, osg::Vec4(0.2, 0.2, 0.2, 1));
 
-			osg::Material* mat2 = new osg::Material;
-			mat2->setColorMode(osg::Material::AMBIENT); // SPECULAR ou EMISSION ou AMBIENT ou DIFFUSE...
-			mat2->setAlpha(osg::Material::FRONT_AND_BACK, 0.8);
-			// on set les differents types de couleur : (voir cours d'eImage sur lumiere ambiante, diffuse, speculaire, ...)
-			mat2->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0.3, 0.9));
-			mat2->setSpecular(osg::Material::FRONT, osg::Vec4(1, 0.1, 0.3, 0.9));
-			mat2->setAmbient (osg::Material::BACK, osg::Vec4(1, 0, 0.1, 1));
-			mat2->setSpecular(osg::Material::BACK, osg::Vec4(1, 0.2, 0.2, 1));
+	osg::Material* mat2 = new osg::Material;
+	mat2->setColorMode(osg::Material::AMBIENT); // SPECULAR ou EMISSION ou AMBIENT ou DIFFUSE...
+	mat2->setAlpha(osg::Material::FRONT_AND_BACK, 0.8);
+	// on set les differents types de couleur : (voir cours d'eImage sur lumiere ambiante, diffuse, speculaire, ...)
+	mat2->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0.3, 0.9));
+	mat2->setSpecular(osg::Material::FRONT, osg::Vec4(1, 0.1, 0.3, 0.9));
+	mat2->setAmbient (osg::Material::BACK, osg::Vec4(1, 0, 0.1, 1));
+	mat2->setSpecular(osg::Material::BACK, osg::Vec4(1, 0.2, 0.2, 1));
 
-		KeyboardEventHandler* keh = new KeyboardEventHandler(mat, mat2, state);
-		viewer.getEventHandlers().push_front(keh);
+	KeyboardEventHandler* keh = new KeyboardEventHandler(mat, mat2, state);
+	viewer.getEventHandlers().push_front(keh);
 
 	/* fin de la creation d'informations */
 

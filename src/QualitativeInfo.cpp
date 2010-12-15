@@ -39,18 +39,18 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 
 		osg::Vec3 * pos = new osg::Vec3(node->getBound().center());
 		double height = node->getBound().radius();
-		pos->set(pos->x(), pos->y(), pos->z()+height/2);
+		pos->set(pos->x(), pos->y(), pos->z()+height);
 		text->setPosition(osg::Vec3(pos->x(),pos->y(),pos->z()+height/2+text->getCharacterHeight()));
 		text->setAutoRotateToScreen(true);
 		text->setAlignment(osgText::Text::CENTER_CENTER);
 		text->setColor(osg::Vec4(1, 0, 0, 1));
 		text->setCharacterSize(root->getBound().radius()*0.15);
 
-		osg::ref_ptr<osg::Cylinder> cyl (new osg::Cylinder(*pos, node->getBound().radius()*0.5, height));
-		osg::ref_ptr<osg::ShapeDrawable> cylD (new osg::ShapeDrawable(cyl.get()));
+		osg::ref_ptr<osg::Sphere> sph (new osg::Sphere(*pos, node->getBound().radius()*0.5));
+		osg::ref_ptr<osg::ShapeDrawable> sphD (new osg::ShapeDrawable(sph.get()));
 		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
 
-		osg::StateSet* state = cylD->getOrCreateStateSet();
+		osg::StateSet* state = sphD->getOrCreateStateSet();
 		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
 		osg::Material* mat = new osg::Material;
 		mat->setAmbient (osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
@@ -58,7 +58,7 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 		mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.6);
 		state->setAttributeAndModes((new osg::Material(*mat)), osg::StateAttribute::OVERRIDE);
 
-		geode->addDrawable(cylD.get());
+		geode->addDrawable(sphD.get());
 		geode->addDrawable(text);
 		root->addChild(geode.get());
 	}
