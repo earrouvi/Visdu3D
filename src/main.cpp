@@ -92,10 +92,14 @@ int main( int argc, const char* argv[])
 
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) cityGMLObject->asGroup()->getChild(0);
 	//CityGMLObject * cityGMLObject2 = new CityGMLObject(myOSGGroup);
-	QualitativeInfo * info = new QualitativeInfo("mon texte ici");
+	QuantitativeInfo * info = new QuantitativeInfo(12);
 	cityGMLObject->addInfo(*info);
-	info->setChildIndex(1);
-	cityGMLObject->displayInfo(*info, root);
+	info->setChildIndex(5);
+	cityGMLObject->displayInfo(*info, 1, root);
+	QualitativeInfo * info2 = new QualitativeInfo("info quali");
+	cityGMLObject->addInfo(*info2);
+	info2->setChildIndex(2);
+	cityGMLObject->displayInfo(*info2, 0, root);
 
 	/* fin de la creation d'informations */
 

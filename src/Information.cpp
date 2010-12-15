@@ -19,9 +19,10 @@
 #include "Information.h"
 #include "DisplayMode.h"
 
-Information::Information() {
-	// TODO Auto-generated constructor stub
+using namespace std;
 
+Information::Information() {
+	//childIndices = new vector<int>();
 }
 
 Information::~Information() {
