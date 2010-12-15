@@ -99,6 +99,21 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 		geode->addDrawable(text);
 		root->addChild(geode.get());
 	}
+	case OPACITY_CHANGE:
+	{
+		osg::StateSet* state = node->getOrCreateStateSet();
+		state->setMode(GL_BLEND,osg::StateAttribute::ON|osg::StateAttribute::OVERRIDE);
+		osg::Material* mat = new osg::Material;
+		mat->setAlpha(osg::Material::FRONT_AND_BACK, 0.5);
+		// let's set the different lights and colors :
+		mat->setAmbient(osg::Material::FRONT, osg::Vec4(1, 0, 0, 1));
+		mat->setSpecular(osg::Material::FRONT, osg::Vec4(0, 0.5, 0, 0.5));
+		// now we can apply this material to our object :
+		state->setAttributeAndModes(mat, osg::StateAttribute::OVERRIDE);
+
+		osg::ref_ptr<osg::Geode> geode (new osg::Geode);
+		root->addChild(node);
+	}
 	break;
 	default:
 		return false;

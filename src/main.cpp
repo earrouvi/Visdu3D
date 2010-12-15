@@ -90,15 +90,13 @@ int main( int argc, const char* argv[])
 	/* creation d'informations et affichage */
 
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) cityGMLObject->asGroup()->getChild(0);
-	//CityGMLObject * cityGMLObject2 = new CityGMLObject(myOSGGroup);
-	QualitativeInfo * info = new QualitativeInfo("batiment neuf");
-	cityGMLObject->addInfo(*info);
-	info->setChildIndex(5);
-	cityGMLObject->displayInfo(*info, 0, root);
-	QualitativeInfo * info2 = new QualitativeInfo("batiment neuf");
-	cityGMLObject->addInfo(*info2);
-	info2->setChildIndex(2);
-	cityGMLObject->displayInfo(*info2, 0, root);
+
+	for (int i=0;i<4;i++) {
+		QualitativeInfo * info = new QualitativeInfo("i*40");
+		cityGMLObject->addInfo(*info);
+		info->setChildIndex(i);
+		cityGMLObject->displayInfo(*info, 0, root);
+	}
 
 
 	// Create new Keybord handler
