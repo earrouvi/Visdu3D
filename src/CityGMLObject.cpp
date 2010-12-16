@@ -61,7 +61,7 @@ void CityGMLObject::initializeList() {
 }
 
 bool CityGMLObject::displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root) {
-	// choix du mode d'affichage et création de la Geode dans la classe Information :
+	// choix du mode d'affichage et crï¿½ation de la Geode dans la classe Information :
 	DisplayType displayType = OPACITY_CHANGE;
 	DisplayMode * mode = new DisplayMode(displayType);
 
@@ -99,6 +99,7 @@ void CityGMLObject::changeInfo(){
 	std::cout << "childIndex vaut " << childIndex << std::endl;
 	refreshInfo();
 }
+
 void CityGMLObject::setColorInfoBuildings() {
 	if(savedMaterial != NULL){
 		removeInfo();

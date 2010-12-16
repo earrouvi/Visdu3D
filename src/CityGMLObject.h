@@ -26,8 +26,9 @@
 
 class CityGMLObject : public osg::Group, public ParsedObject {
 public:
-	CityGMLObject(std::string fileName);
 	CityGMLObject();
+	CityGMLObject(std::string fileName);
+
 
 	void initializeList();
 	bool displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root);

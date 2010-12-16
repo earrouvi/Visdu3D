@@ -13,7 +13,7 @@
 
 // Comment/Uncomment this line if osgGIS is not installed on your platform
 // You will not be able to display a shapefile nor to extract information from it.
-#define OSGGIS_NOT_INSTALLED
+//#define OSGGIS_NOT_INSTALLED
 // DO THE SAME in ShapefileObject and DilplayableField Files (.h and .cpp)
 
 #include <iostream>

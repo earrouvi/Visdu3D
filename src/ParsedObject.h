@@ -19,7 +19,6 @@
 #include <osg/ShapeDrawable>
 
 //others
-#include "ParsedObject.h"
 #include <iostream>
 #include <ext/hash_map>
 #include "Information.h"

@@ -15,6 +15,7 @@
  */
 
 #include "GeodeFinder.h"
+#include <string.h>
 
 GeodeFinder::GeodeFinder ()
    : NodeVisitor (osg::NodeVisitor::TRAVERSE_ALL_CHILDREN) {}

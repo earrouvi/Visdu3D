@@ -19,13 +19,14 @@
 //others
 #include "DisplayMode.h"
 #include <vector>
+#include <iostream>
 
 class Information {
 public:
 	Information();
 	~Information();
 
-	virtual bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) { printf("Cannot display abstract Information\n"); return false;};
+	virtual bool display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, osg::ref_ptr<osg::Group> root) { std::cout << "Cannot display abstract Information\n" << std::endl; return false;};
 
 	std::string getMyName() { return myName; }
 	void setMyName(std::string s) { myName = s; }
