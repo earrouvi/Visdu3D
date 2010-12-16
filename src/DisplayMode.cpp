@@ -7,6 +7,8 @@
 
 #include "DisplayMode.h"
 
+#include <osg/MatrixTransform>
+#include <osgDB/ReadFile>
 
 DisplayMode::DisplayMode(DisplayType dt)
 : myTextToDisplay(""),
@@ -50,7 +52,7 @@ void DisplayMode::addGeode(osg::ref_ptr<osg::Group> root, FormType formType){
 	//If type is SHAPE_3D we add the shape to the geode, here Sphere
 	if(myDisplayType == SHAPE_3D && formType == CYLINDER){
 		//Adjust height and myPosition
-		myPos.set(myPos.x(), myPos.y(), myPos.z()+myHeight/2);
+		myPos.set(myPos.x(), myPos.y(), myHeight/2);
 		//Creates cylinder and drawable
 		osg::ref_ptr<osg::Cylinder> cyl (new osg::Cylinder(myPos, myRadius*0.5, myHeight));
 		osg::ref_ptr<osg::ShapeDrawable> cylD (new osg::ShapeDrawable(cyl.get()));
@@ -62,9 +64,60 @@ void DisplayMode::addGeode(osg::ref_ptr<osg::Group> root, FormType formType){
 		//Add the cylinder to the geode
 		myGeode->addDrawable(cylD.get());
 	}
+	//If type is SHAPE_3D we add the shape to the geode, here SMARTIES
+	if(myDisplayType == SHAPE_3D_SMARTIES && formType == SMARTIES){
+		//Our shape: a sphere, transformed by scaling to a smarties.
+		osg::ref_ptr<osg::Geode> myShapeGeodeSmarties (new osg::Geode());
+		//The sphere is created relatively to the size of the buildings
+		osg::ref_ptr<osg::Sphere> mySmarties (new osg::Sphere(osg::Vec3f(0.f,0.f,0.f),myRadius));
+		//Place the sphere upon the building
+		mySmarties->setCenter(osg::Vec3(myPos.x(),myPos.y(),myHeight));
+		//The future Smarties' shape drawable
+		osg::ref_ptr<osg::ShapeDrawable> smartiesDrawable (new osg::ShapeDrawable(mySmarties.get()));
+		// Add the shape drawable to the geode
+		myShapeGeodeSmarties->addDrawable(smartiesDrawable.get());
+		//Getting the state set of the geode
+		osg::ref_ptr<osg::StateSet> nodesscapsule (myShapeGeodeSmarties->getOrCreateStateSet());
+		//Loads the image for texturing the smarties
+		osg::ref_ptr<osg::Image> image (osgDB::readImageFile("Smiley.png"));
+		//Bind the image to a 2D texture object
+		osg::ref_ptr<osg::Texture2D> tex (new osg::Texture2D);
+		tex->setImage(image.get());
+		//Applying texture on the smarties (but sphere) object
+		nodesscapsule->setTextureAttributeAndModes(0,tex.get(),osg::StateAttribute::ON);
+		//Dealing with matrix for transforming the sphere into a smarties
+		osg::ref_ptr<osg::MatrixTransform> sphereToSmartiesScaleMAT = new osg::MatrixTransform;
+		//If we don't translate the sphere at the center of scene before scaling it,
+		// the resulted scaled object would be translated
+		osg::Matrix tranlateToOrigin = osg::Matrix::translate(-myPos.x(),-myPos.y(),0.f);
+		osg::Matrix scaleToASmarties = osg::Matrix::scale(1.f,0.1f,1.f);
+		osg::Matrix translateToBuildingPos = osg::Matrix::translate(myPos.x(),myPos.y(),0.f);
+		//Osg uses prefix matrix multiplication
+		osg::Matrix transformToASmarties = tranlateToOrigin * scaleToASmarties * translateToBuildingPos;
+		// Set the matrix transform
+		sphereToSmartiesScaleMAT->addChild(myShapeGeodeSmarties.get());
+		sphereToSmartiesScaleMAT->setMatrix(transformToASmarties);
+		// We will now add a 3D indicator to the building
+		//The geode containing our  information shape
+		osg::ref_ptr<osg::Geode> myIndicatorCapsuleGeode (new osg::Geode);
+		//The indicator is also created relatively to the size of the buildings
+		osg::ref_ptr<osg::Capsule> myIndicatorCapsule (new osg::Capsule(osg::Vec3f(),myRadius * 0.05f, myHeight));
+		//Place the sphere upon the building
+		myIndicatorCapsule->setCenter(osg::Vec3f(myPos.x(),myPos.y(),myHeight*0.5));
+		//The future Smarties' shape drawable
+		osg::ref_ptr<osg::ShapeDrawable> myIndicatorCapsuleDrawable (new osg::ShapeDrawable(myIndicatorCapsule.get()));
+		// Add the shape drawable to the geode ///myIndicatorCapsuleGeode->addDrawable(myIndicatorCapsuleDrawable.get());
+		myGeode->addDrawable(myIndicatorCapsuleDrawable.get());
+		// I don'get why if th following is missing, objects are not in the same place
+		osg::ref_ptr<osg::MatrixTransform> myIndicatorCapsuleScaleMAT = new osg::MatrixTransform;
+
+		//Add the applaned spher called smarties to the scene
+		root->addChild(sphereToSmartiesScaleMAT.get());
+	}
 	if(displayText = true){
 		myGeode->addDrawable(text);
 	}
+	//Add the Geode to global scene
 	root->addChild(myGeode.get());
 }
 

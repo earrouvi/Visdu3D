@@ -16,8 +16,8 @@ public:
 	QuantitativeInfo(double d);
 	QuantitativeInfo(Information & info);
 
-	virtual bool isQuali() { return false; }
-	virtual bool isQuanti() { return true; }
+	//Permit us to get a pointer on the object with specified type from an Information
+	virtual QuantitativeInfo * getTypedInfo() { return this; }
 
 	virtual ~QuantitativeInfo();
 

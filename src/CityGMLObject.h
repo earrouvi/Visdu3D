@@ -33,6 +33,7 @@ public:
 	void initializeList();
 	bool displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root);
 	void maskInfo(Information &info);
+	void setDisplayType(DisplayType displayType) { myDisplayType = displayType;}
 
 	void changeInfo();
 	void setColorInfoBuildings();
@@ -43,6 +44,7 @@ public:
 	virtual ~CityGMLObject();
 
 private:
+	DisplayType myDisplayType;
 	osg::ref_ptr<osg::MatrixTransform> myCityGMLScaleMAT;
 	unsigned int childIndex;
 	int matIndex;

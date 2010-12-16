@@ -49,6 +49,17 @@ bool QualitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node, 
 		mode->addGeode(root,SPHERE);
 	}
 	break;
+	// For shape 3D display type SHAPE_3D: we add a 3D shape of SMARTIES XD
+	case SHAPE_3D_SMARTIES:
+	{
+		//Sets the mode's functionalities
+		mode->setPos(*pos);
+		mode->setRadius(radius* 0.5);
+		mode->setHeight(height*2.5);
+		//Add the 3d object to the scene
+		mode->addGeode(root,SMARTIES);
+
+	}
 	// For color change display type COLOR_CHANGE: we switch color
 	case COLOR_CHANGE:
 	{
