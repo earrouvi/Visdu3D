@@ -42,6 +42,12 @@ int main( int argc, const char* argv[])
 {
 	/* Parsing the program arguments */
 	cout << "Parsing arguments..." << endl;
+	if(argc == 0){
+		cout << "error: Please enter at least a path to a CityGML file as argument." << endl;
+		cout << "You may add a path to a ShapeFile file as second argument." << endl;
+	}else if(argc > 2){
+		cout << "Too many arguments." << endl;
+	}
 	//  Checking CityGML File
 	string cityGMLFile = argv[1];
 	if(cityGMLFile.substr(cityGMLFile.find_last_of(".") + 1) != "citygml")
@@ -49,16 +55,19 @@ int main( int argc, const char* argv[])
 		cout << "error: Not a correct CityGML file, put it in \".citygml\" format." << endl;
 	} else {
 		cout << "CityGML argument parsing OK... " << endl;
+
 	}
 #ifndef OSGGIS_NOT_INSTALLED
-	// Checking ShapeFile File // example"/home/toinon/OrbisGIS/data_seance_5/Girona/Rivers/rius.shp"
-	string shapeFile = argv[2];
-	if(shapeFile.substr(shapeFile.find_last_of(".") + 1) != "shp")
+	if(argc == 2){
+		// Checking ShapeFile File // example"/home/toinon/OrbisGIS/data_seance_5/Girona/Rivers/rius.shp"
+		string shapeFile = argv[2];
+		if(shapeFile.substr(shapeFile.find_last_of(".") + 1) != "shp")
 		{
 			cout << "error: Not a correct ShapeFile file, put it in \".shp\" format." << endl;
 		} else {
 			cout << "ShapeFile argument parsing OK... " << endl;
 		}
+	}
 #endif/*OSGGIS_NOT_INSTALLED*/
 
 	cout << "Parsing OK... " << endl;
@@ -79,52 +88,52 @@ int main( int argc, const char* argv[])
 	root->addChild(shapeFileScaleMAT.get());*/
 
 	/* OPENING THE FILES */
-		/*CITYGML*/
-			cout << "Loading files... " << endl;
-			//Loading the CityGML file
-			cout << "Loading CityGML file... " << endl;
-			CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
-			// Add the nodes to the scene graph root (Group)
-			root->addChild(cityGMLObject->getCityGMLScaleMAT());
-			cout << "CityGML file loaded... " << endl;
+	/*CITYGML*/
+	cout << "Loading files... " << endl;
+	//Loading the CityGML file
+	cout << "Loading CityGML file... " << endl;
+	CityGMLObject * cityGMLObject = new CityGMLObject(cityGMLFile);
+	// Add the nodes to the scene graph root (Group)
+	root->addChild(cityGMLObject->getCityGMLScaleMAT());
+	cout << "CityGML file loaded... " << endl;
 
-			cout << "Loading Shapefile file... " << endl;
-			// Insert commands here.
-			cout << "Shapefile loaded... " << endl;
+	cout << "Loading Shapefile file... " << endl;
+	// Insert commands here.
+	cout << "Shapefile loaded... " << endl;
 #ifndef OSGGIS_NOT_INSTALLED
-		/*SHAPEFILE*/
-			//Loading the Shapefile
-			ShapefileObject* shapeFileObject = new ShapefileObject(shapeFile);
-			//Write the different type of information included in the ShapeFile
-			//With this you can choose which type of information you get.
-			shapeFileObject->printFieldsName();
-			// Sets the color of the shapeFile Object
-			shapeFileObject->setColor("green");
-			osg::ref_ptr<osg::Node> shapeFileNode = shapeFileObject->transformShapefile();
-			// Add the nodes to the scene graph root (Group)
-			root->addChild(shapeFileNode.get());
-			//Extracts a type of information from the shapeFile
-			std::vector<DisplayableField> fieldList = shapeFileObject->ListFeaturesForField(4);
-			//Create 3D visualization for these information
-			//Sets a visualization mode
-			DisplayMode * shapeFileVisualizationMode = new DisplayMode();
-			shapeFileVisualizationMode->set...
-			shapeFileObject->createShapeFileInformation(shapeFileVisualizationMode, fieldList);
-			//Adds the information to the scene
-			shapeFileVisualizationMode->addGeode(root);
-			root->addChild(shapeInformation.get());
+	/*SHAPEFILE*/
+	//Loading the Shapefile
+	ShapefileObject* shapeFileObject = new ShapefileObject(shapeFile);
+	//Write the different type of information included in the ShapeFile
+	//With this you can choose which type of information you get.
+	shapeFileObject->printFieldsName();
+	// Sets the color of the shapeFile Object
+	shapeFileObject->setColor("green");
+	osg::ref_ptr<osg::Node> shapeFileNode = shapeFileObject->transformShapefile();
+	// Add the nodes to the scene graph root (Group)
+	root->addChild(shapeFileNode.get());
+	//Extracts a type of information from the shapeFile
+	std::vector<DisplayableField> fieldList = shapeFileObject->ListFeaturesForField(4);
+	//Create 3D visualization for these information
+	//Sets a visualization mode
+	DisplayMode * shapeFileVisualizationMode = new DisplayMode();
+	shapeFileVisualizationMode->set...
+	shapeFileObject->createShapeFileInformation(shapeFileVisualizationMode, fieldList);
+	//Adds the information to the scene
+	shapeFileVisualizationMode->addGeode(root);
+	root->addChild(shapeInformation.get());
 #endif/*OSGGIS_NOT_INSTALLED*/
 
 
 	/* Information creation and display */
-
+	cityGMLObject->setDisplayType(SHAPE_3D_SMARTIES);
 	osg::ref_ptr<osg::Group> myOSGGroup = (osg::Group*) cityGMLObject->asGroup()->getChild(0);
 
 	for (int i=0;i<4;i++) {
-		QualitativeInfo * info = new QualitativeInfo("i*40");
+		QuantitativeInfo * info = new QuantitativeInfo(i*40);
 		cityGMLObject->addInfo(*info);
 		info->setChildIndex(i);
-		cityGMLObject->displayInfo(*info, 0, root);
+		cityGMLObject->displayInfo(*info, 1, root);
 	}
 
 

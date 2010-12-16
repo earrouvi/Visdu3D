@@ -61,29 +61,20 @@ void CityGMLObject::initializeList() {
 }
 
 bool CityGMLObject::displayInfo(Information &info, int qualiOrQuanti, osg::ref_ptr<osg::Group> root) {
-	// choix du mode d'affichage et création de la Geode dans la classe Information :
-	DisplayType displayType = OPACITY_CHANGE;
+	//Chooses the display mode and creates the Geode in Information
+	DisplayType displayType = myDisplayType;
 	DisplayMode * mode = new DisplayMode(displayType);
-
-	bool bienAffiche = false;
+	bool displayOK = false;
 	osg::ref_ptr<osg::Group> OSGGroup (new osg::Group(*this->asGroup()));
 	osg::ref_ptr<osg::Node> node;
-
 	try {
 		node = OSGGroup->getChild(info.getChildIndex());
 	} catch (char * s) {
 		std::cout << "The group's child you are trying to get probably does not exist." << std::endl;
 	}
-
-	if (qualiOrQuanti==0) {
-		bienAffiche = static_cast<QualitativeInfo>(info).display(mode, node, root);
-	} else if (qualiOrQuanti==1) {
-		bienAffiche = static_cast<QuantitativeInfo>(info).display(mode, node, root);
-	} else {
-		std::cout << "This piece of information is not quantitative." << std::endl;
-		std::cout << "Cannot display abstract information." << std::endl;
-	}
-	return bienAffiche;
+	//Gets the typed info and displays it
+	displayOK = info.getTypedInfo()->display(mode, node, root);
+	return displayOK;
 }
 
 void CityGMLObject::maskInfo(Information &info) {

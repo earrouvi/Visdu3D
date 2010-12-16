@@ -28,6 +28,7 @@
 enum DisplayType {
 	NO_DISPLAY_TYPE,
 	SHAPE_3D,
+	SHAPE_3D_SMARTIES,
 	COLOR_CHANGE,
 	OPACITY_CHANGE,
 	TEXT_DISPLAY
@@ -35,7 +36,8 @@ enum DisplayType {
 enum FormType {
 	NO_FORM_TYPE,
 	CYLINDER,
-	SPHERE
+	SPHERE,
+	SMARTIES
 };
 
 class DisplayMode {

@@ -22,8 +22,8 @@ public:
 	QualitativeInfo(std::string s);
 	QualitativeInfo(Information & info);
 
-	virtual bool isQuali() { return true; }
-	virtual bool isQuanti() { return false; }
+	//Permit us to get a pointer on the object with specified type from an Information
+	virtual QualitativeInfo * getTypedInfo() { return this; }
 
 	virtual ~QualitativeInfo();
 

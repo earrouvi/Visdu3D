@@ -47,9 +47,20 @@ bool QuantitativeInfo::display(DisplayMode * mode, osg::ref_ptr<osg::Node> node,
 		mode->setText(figure);
 		mode->setPos(*pos);
 		mode->setRadius(radius);
-		mode->setHeight(height*getMyFigure()/4);// change 4 into another number if the display is not satisfying
+		mode->setHeight(height*getMyFigure()/16);// change 4 into another number if the display is not satisfying
 		//Add the 3d object to the scene
 		mode->addGeode(root,CYLINDER);
+
+	}
+	// For shape 3D display type SHAPE_3D: we add a 3D shape of SMARTIES XD
+	case SHAPE_3D_SMARTIES:
+	{
+		//Sets the mode's functionalities
+		mode->setPos(*pos);
+		mode->setRadius(radius*getMyFigure()* 0.5/40);
+		mode->setHeight(height*getMyFigure()*2.5/40);
+		//Add the 3d object to the scene
+		mode->addGeode(root,SMARTIES);
 
 	}
 	// For color change display type COLOR_CHANGE: we switch color

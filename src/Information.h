@@ -39,9 +39,10 @@ public:
 	int getChildIndex() { return childIndex; }
 	void setChildIndex(int i) { childIndex = i; }
 
-	//
-	void createSmartiesAndIncatorForNode( osg::ref_ptr<osg::Node> nodeToIndicate);
+	//Permit us to get a pointer on the object with specified type from an Information
+	virtual Information * getTypedInfo() { return this; }
 
+	// REMOVE
 	//int getChildIndicesSize() { return childIndices->size(); }
 	//int getChildIndices(int i) { return childIndices->at(i); }
 	//void addIndex(int i) { childIndices->push_back(i); }
